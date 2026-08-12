@@ -1,0 +1,7 @@
+**/data/*.mat
+**/results/*
+!**/data/README.md
+!**/results/.gitkeep
+*.asv
+*.m~
+.DS_Store

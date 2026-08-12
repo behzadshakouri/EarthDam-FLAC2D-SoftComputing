@@ -1,1 +1,77 @@
 # EarthDam-FLAC2D-SoftComputing
+
+Research software and reproducibility materials for a multi-task program on
+FLAC2D-based earth-dam analysis, uncertainty assessment, failure screening,
+and machine-learning surrogate modeling.
+
+This repository complements—but does not replace—the independent general
+automation project
+[`Dam_Model_FLAC2D_Runner`](https://github.com/behzadshakouri/Dam_Model_FLAC2D_Runner).
+That repository manages reusable FLAC2D simulation execution. This repository
+contains paper- and task-specific scientific processing, surrogate models,
+evaluation, figures, and reproducibility records.
+
+## Research tasks
+
+| Task | Scope | Repository status |
+|---|---|---|
+| Task 1 | First-impoundment research | Publication context only; bibliographic record to be added from the published article |
+| Task 2 | Seismic-response simulation and ELM-based surrogates | Complete reproducibility package |
+| Tasks 3-4 | Future research extensions | Added only when publishable code or documentation is available |
+
+The repository intentionally contains no empty Task 3 or Task 4 directories.
+
+## Current structure
+
+```text
+EarthDam-FLAC2D-SoftComputing/
+├── README.md
+├── LICENSE
+├── CITATION.cff
+├── ROADMAP.md
+├── common/
+├── task1_first_impoundment/
+└── task2_seismic_response/
+```
+
+### Task 2: seismic response
+
+The current complete implementation is under
+[`task2_seismic_response/`](task2_seismic_response/). It includes:
+
+- ELM, ELM-ABC, ELM-ACOR, and ELM-IGWO;
+- response-specific numerical-instability screening;
+- a fixed 210-development/90-test realization split;
+- all twelve hidden-neuron sensitivity configurations;
+- final selected configurations: ELM-30, ABC-15, ACOR-15, IGWO-5;
+- reference metrics, aggregation, plots, tests, dependency sources, and
+  licensing information.
+
+Start with [`task2_seismic_response/README.md`](task2_seismic_response/README.md).
+
+## Releases
+
+Each paper-specific reproducibility snapshot should receive its own tag:
+
+```text
+task1-v1.0.0
+task2-v1.0.0
+```
+
+Future development may continue on the default branch without changing an
+archived paper release. A release DOI can be added to the task-specific
+citation record when the GitHub release is archived.
+
+## Data policy
+
+Large or restricted FLAC2D datasets are not committed. Each task documents its
+required inputs, representative/reference results, and regeneration steps.
+Complete datasets may be made available under the associated article's data-
+availability statement.
+
+## License and attribution
+
+Project-authored code is released under the root MIT license. Task-specific
+third-party components remain under their original licenses and notices. See
+`task2_seismic_response/THIRD_PARTY_NOTICES.md` for the current dependency
+record.

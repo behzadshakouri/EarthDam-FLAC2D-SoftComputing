@@ -1,0 +1,6 @@
+data/*.mat
+results/*
+!data/README.md
+!results/.gitkeep
+*.asv
+*.m~

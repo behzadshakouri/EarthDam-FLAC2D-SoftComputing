@@ -1,0 +1,43 @@
+clc; clear; close all;
+set(groot,'defaultFigureRenderer','opengl');
+
+MethodTag = 'ELM';
+outRoot = fullfile('E:\University\My Thesis\Flac model\New\Maku_PT2_Data\', ...
+                   [MethodTag '_FULL70_OUT']);
+if ~exist(outRoot,'dir'), error('Output root not found:\n%s', outRoot); end
+
+Points    = 1:10;
+Responses = 1:7;
+
+ResponseLabels = {
+    '\Delta_x [m]'
+    '\Delta_y [m]'
+    '\sigma_{xx} [-]'
+    '\sigma_{yy} [-]'
+    'P_{pore} [-]'
+    '\delta\gamma [-]'
+    '\delta\nu_s [-]'
+};
+
+figName = "ALL 70 | SAFE Obs vs Pred (" + MethodTag + ")";
+pngOut  = fullfile(outRoot, "ALL70_SAFE_obs_vs_pred_" + MethodTag + ".png");
+
+FigPosition = [60 60 4200 2800];   % you control size here (like your CDF)
+
+plot_grid_obs_vs_pred_7x10(outRoot, ...
+    'Points', Points, ...
+    'Responses', Responses, ...
+    'FigureName', figName, ...
+    'MethodTag', MethodTag, ...
+    'ResponseLabels', ResponseLabels, ...
+    'TileSpacing', 'compact', ...
+    'Padding', 'compact', ...
+    'SquareDataRange', true, ...     % keep fair 1:1 comparison
+    'SquareTiles', false, ...        % <<< prevents x free-space
+    'MaxPerTile', 3000, ...
+    'PctlLo', 0.5, 'PctlHi', 99.5, 'PadFrac', 0.05, ...
+    'FigPosition', FigPosition, ...
+    'ExportDPI', 300, ...
+    'SavePNG', pngOut);
+
+fprintf('Saved:\n%s\n', pngOut);

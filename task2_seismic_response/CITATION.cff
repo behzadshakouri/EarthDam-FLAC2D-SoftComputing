@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated earth-dam surrogate-modeling article and this software release."
+title: "Task 2 Seismic-Response MATLAB Surrogate-Modeling Workflow"
+type: software
+authors:
+  - family-names: Shakouri
+    given-names: Behzad
+version: 1.0.0
+date-released: 2026-08-12
+license: MIT
+repository-code: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing"
+url: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing/tree/main/task2_seismic_response"
+keywords:
+  - extreme learning machine
+  - earth dam
+  - seismic response
+  - surrogate modeling
+  - artificial bee colony
+  - improved grey wolf optimizer

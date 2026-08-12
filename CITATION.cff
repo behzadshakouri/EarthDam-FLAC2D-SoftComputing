@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "Please cite the task-specific article and software release used in your work."
+title: "EarthDam-FLAC2D-SoftComputing"
+type: software
+authors:
+  - family-names: Shakouri
+    given-names: Behzad
+version: 1.0.0
+date-released: 2026-08-12
+license: MIT
+repository-code: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing"
+keywords:
+  - earth dam
+  - FLAC2D
+  - surrogate modeling
+  - uncertainty analysis
+  - extreme learning machine

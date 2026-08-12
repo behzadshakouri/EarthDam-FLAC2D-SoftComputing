@@ -1,0 +1,57 @@
+clc; clear; close all;
+set(groot,'defaultFigureRenderer','opengl');
+
+% =========================
+% Paths
+% =========================
+FT_file   = 'E:\University\My Thesis\Flac model\New\Maku_PT2_Data\Data\FAILURE_TIMES_v6.mat';
+FULL_file = 'E:\University\My Thesis\Flac model\New\Maku_PT2_Data\Data\FULL_ALL_POINTS_ALL_RESPONSES_XY.mat';
+outDir    = 'E:\University\My Thesis\Flac model\New\Maku_PT2_Data\Failure plots';
+
+if ~exist(outDir,'dir')
+    mkdir(outDir);
+end
+
+% =========================
+% Real Response Names (R1..R7 order)
+% =========================
+ResponseLabels = {
+    '\Delta_x [m]'
+    '\Delta_y [m]'
+    '\sigma_{xx} [-]'
+    '\sigma_{yy} [-]'
+    'P_{pore} [-]'
+    '\delta\gamma [-]'
+    '\delta\nu_s [-]'
+};
+
+% =========================
+% Plot Settings
+% =========================
+FontName      = 'Arial';
+FontSize      = 12;   % tick fonts
+LabelFontSize = 18;   % row labels / shared labels / P1...P10
+NFontSize     = 11;   % n=...
+
+% =========================
+% Run Plot
+% =========================
+plot_pga_cdfs_grid70_updated(FT_file, FULL_file, ...
+    'FailureMode','response', ...
+    'Points',1:10, ...
+    'Responses',1:7, ...
+    'MinFailed',10, ...
+    'ShowMedian',true, ...
+    'ShowN',true, ...
+    'UseGlobalXLim',true, ...
+    'XLimPctl',[1 99], ...
+    'ResponseLabels',ResponseLabels, ...
+    'SaveDir',outDir, ...
+    'ExportDPI',300, ...
+    'FigPosition',[60 60 4200 2800], ...
+    'FontName',FontName, ...
+    'FontSize',FontSize, ...
+    'LabelFontSize',LabelFontSize, ...
+    'NFontSize',NFontSize);
+
+disp('DONE: GRID70 PGA CDFs saved.');

@@ -1,0 +1,9 @@
+function dataset = assemble_consolidated_dataset(X, Y, cfg)
+%ASSEMBLE_CONSOLIDATED_DATASET Create canonical time-major dataset structure.
+metadata = build_row_metadata(cfg);
+dataset = struct('schema_name', 'task2_consolidated_dataset', ...
+    'created_utc', char(datetime('now','TimeZone','UTC','Format','yyyy-MM-dd''T''HH:mm:ssXXX')), ...
+    'X', X, 'Y', Y, 'sim_id', metadata.sim_id, 'step', metadata.step, ...
+    'time_s', metadata.time_s, 'target_definition', 'cumulative_absolute_response_envelope');
+validate_consolidated_dataset(dataset, cfg);
+end

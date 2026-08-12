@@ -1,0 +1,64 @@
+% ========================================================================
+% CALLER (compare metrics across models)
+% Display names: ELM-ABC, ELM-IGWO, ...
+% Folder names : ELMABC,  ELMIGWO,  ...
+% ========================================================================
+clc; clear; close all;
+set(groot,'defaultFigureRenderer','opengl');
+
+baseRoot = 'E:\University\My Thesis\Flac model\New\Maku_PT2_Data';
+
+Models   = {'ELM','ELM-IGWO','ELM-ACOR','ELM-ABC'};
+Baseline = 'ELM';
+
+% Real response names (R1..R7 order)
+ResponseLabels = {
+    '\Delta_x [m]'
+    '\Delta_y [m]'
+    '\sigma_{xx} [-]'
+    '\sigma_{yy} [-]'
+    'P_{pore} [-]'
+    '\delta\gamma [-]'
+    '\delta\nu_s [-]'
+};
+
+% Folder tokens (what exists on disk)
+FolderByModel = containers.Map();
+FolderByModel('ELM')      = 'ELM';
+FolderByModel('ELM-IGWO') = 'ELMIGWO';
+FolderByModel('ELM-ACOR') = 'ELMACOR';
+FolderByModel('ELM-ABC')  = 'ELMABC';
+
+% Build RootByModel with your FULL70_OUT convention
+RootByModel = struct();
+for i=1:numel(Models)
+    m = Models{i};
+    folderTok = FolderByModel(m);
+    rootDir = fullfile(baseRoot, [folderTok '_FULL70_OUT']);
+    if ~exist(rootDir,'dir')
+        error('Model output root not found:\n%s', rootDir);
+    end
+    RootByModel.(matlab.lang.makeValidName(m)) = rootDir;
+end
+
+plot_compare_models_metrics( ...
+    'OutRoot',     baseRoot, ...
+    'SaveDir',     baseRoot, ...
+    'RootByModel', RootByModel, ...
+    'Models',      Models, ...
+    'Metrics',     {'R2','RMSE','MAE','a10'}, ...
+    'Baseline',    Baseline, ...
+    'Points',      1:10, ...
+    'Responses',   1:7, ...
+    'ResponseLabels', ResponseLabels, ...     % <<< NEW
+    'DotBy',       'response', ...
+    'ErrorScale',  'normalized', ...
+    'NormScope',   'per_response', ...
+    'NormMethod',  'p95p5', ...
+    'NormRefModel','ELM', ...
+    'RatioFloor',  1e-12, ...
+    'MinSafe',     50, ...
+    'FigPosition', [60 60 4200 2800], ...
+    'ExportDPI',   300);
+
+disp('DONE');
