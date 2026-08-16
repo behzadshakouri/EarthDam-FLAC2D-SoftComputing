@@ -59,18 +59,25 @@ for im = 1:numel(methods)
             index = [index;q]; %#ok<AGROW>
         end
     end
-    rows=sortrows(rows,{'point','response'}); index=sortrows(index,{'point','response'});
+    % A targeted/partial run may contain no checkpoints for this method.
+    % Only sort and export a method table when at least one row exists.
+    if ~isempty(rows)
+        rows=sortrows(rows,{'point','response'});
+    end
+    index=sortrows(index,{'point','response'});
     complete(im)=isempty(missing); results_by_method.(method)=rows;
     if ~isempty(rows)
         if isempty(results),results=rows;else,results=[results;rows];end %#ok<AGROW>
     end
     case_files=[case_files;index]; %#ok<AGROW>
-    writetable(rows,fullfile(results_dir,sprintf('task2_%s_metrics.csv',lower(method))));
-    payload=struct('cfg',cfg,'split',split,'results',rows,'method',method, ...
-        'case_files',index,'missing_cases',missing,'source_directory', ...
-        fullfile(results_dir,method));
-    save(fullfile(results_dir,sprintf('task2_%s_results.mat',lower(method))), ...
-        '-struct','payload','-v7.3');
+    if ~isempty(rows)
+        writetable(rows,fullfile(results_dir,sprintf('task2_%s_metrics.csv',lower(method))));
+        payload=struct('cfg',cfg,'split',split,'results',rows,'method',method, ...
+            'case_files',index,'missing_cases',missing,'source_directory', ...
+            fullfile(results_dir,method));
+        save(fullfile(results_dir,sprintf('task2_%s_results.mat',lower(method))), ...
+            '-struct','payload','-v7.3');
+    end
 end
 if ~isempty(results)
     results.aggregate_order=categorical(results.model,string(methods),'Ordinal',true);
