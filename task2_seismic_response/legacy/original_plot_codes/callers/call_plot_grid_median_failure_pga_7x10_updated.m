@@ -7,15 +7,7 @@ outDir   = 'E:\University\My Thesis\Flac model\New\Maku_PT2_Data\Failure plots';
 
 if ~exist(outDir,'dir'), mkdir(outDir); end
 
-ResponseLabels = {
-    '\Delta_x [m]'
-    '\Delta_y [m]'
-    '\sigma_{xx} [-]'
-    '\sigma_{yy} [-]'
-    'P_{pore} [-]'
-    '\delta\gamma [-]'
-    '\delta\nu_s [-]'
-};
+ResponseLabels = final_response_labels();
 
 plot_grid_median_failure_pga_7x10_updated(full_mat, FT_file, ...
     'FailureMode','response', ...
@@ -41,4 +33,4 @@ plot_grid_median_failure_pga_7x10_updated(full_mat, FT_file, ...
     'SideLabelFontSize',26, ...
     'AxesPosition',[0.060 0.055 0.82 0.89]);
 
-disp('DONE: Median failure PGA heatmap saved.');
+disp('DONE: Median PGA-at-detected-transition heatmap saved.');

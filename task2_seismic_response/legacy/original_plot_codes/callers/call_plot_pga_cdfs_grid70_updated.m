@@ -15,15 +15,7 @@ end
 % =========================
 % Real Response Names (R1..R7 order)
 % =========================
-ResponseLabels = {
-    '\Delta_x [m]'
-    '\Delta_y [m]'
-    '\sigma_{xx} [-]'
-    '\sigma_{yy} [-]'
-    'P_{pore} [-]'
-    '\delta\gamma [-]'
-    '\delta\nu_s [-]'
-};
+ResponseLabels = final_response_labels();
 
 % =========================
 % Plot Settings
@@ -54,4 +46,4 @@ plot_pga_cdfs_grid70_updated(FT_file, FULL_file, ...
     'LabelFontSize',LabelFontSize, ...
     'NFontSize',NFontSize);
 
-disp('DONE: GRID70 PGA CDFs saved.');
+disp('DONE: GRID70 PGA-at-detected-transition CDFs saved.');

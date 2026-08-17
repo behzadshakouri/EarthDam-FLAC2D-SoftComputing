@@ -1,5 +1,5 @@
 function report = generate_failure_screening_report()
-%GENERATE_FAILURE_SCREENING_REPORT Tables and canonical failure heatmaps.
+%GENERATE_FAILURE_SCREENING_REPORT Tables and detected-transition heatmaps.
 root=setup_task2;cfg=task2_config(root);
 S=load(cfg.failure_file,'failure_data'); F=S.failure_data;
 outDir=fullfile(root,'results','failure_screening');
@@ -28,13 +28,13 @@ end
 report=rows;
 writetable(report,fullfile(outDir,'failure_screening_summary.csv'));
 write_parameter_table(cfg,fullfile(outDir,'failure_detector_parameters.csv'));
-plot_matrix(rows.detected_fraction,'Detected fraction', ...
+plot_matrix(rows.detected_fraction,'Fraction with detected transition', ...
     fullfile(outDir,'failure_detected_fraction.png'));
 plot_matrix(rows.median_onset_s,'Median onset time (s)', ...
     fullfile(outDir,'failure_median_onset_time.png'));
 plot_matrix(rows.earliest_onset_s,'Earliest onset time (s)', ...
     fullfile(outDir,'failure_earliest_onset_time.png'));
-fprintf('Failure-screening report saved under %s\n',outDir);
+fprintf('Detected-transition screening report saved under %s\n',outDir);
 end
 
 function write_parameter_table(cfg,path)
@@ -52,8 +52,10 @@ function plot_matrix(values,titleText,path)
 M=reshape(values,7,10)';
 f=figure('Visible','off','Color','w','Position',[100 100 1100 650]);
 imagesc(M);axis image;colorbar;
-xlabel('Response');ylabel('Monitoring point');title(titleText);
-xticks(1:7);xticklabels(compose('R%d',1:7));
+xlabel('Response quantity');ylabel('Numerical extraction point');title(titleText);
+D=response_dictionary();
+xticks(1:7);xticklabels(cellstr(D.symbol_tex));
+set(gca,'TickLabelInterpreter','tex');
 yticks(1:10);yticklabels(compose('P%d',1:10));
 exportgraphics(f,path,'Resolution',220);close(f);
 end

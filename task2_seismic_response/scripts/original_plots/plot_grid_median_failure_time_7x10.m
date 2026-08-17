@@ -1,7 +1,7 @@
 function plot_grid_median_failure_time_7x10(FT_file, varargin)
 % plot_grid_median_failure_time_7x10(FT_file, ...)
-% Heatmap (7x10): median failure time per (R,P) using FT.
-% Optional: show % failed sims per cell.
+% Heatmap (7x10): median detected-transition time per response and point.
+% Optional: show the percentage of realizations with a detected transition.
 %
 % House style:
 % - NO titles anywhere
@@ -9,6 +9,7 @@ function plot_grid_median_failure_time_7x10(FT_file, varargin)
 % - Response names via ResponseLabels (tex)
 % - Arial fonts + consistent sizing
 % - Robust PNG saving via print('-RGBImage')
+% - First response in Responses appears at the TOP
 
 % ----------------------------
 % Parse inputs
@@ -32,18 +33,23 @@ p.addParameter('Colormap',      'hot', @(s)ischar(s)||isstring(s));
 p.addParameter('RobustLimits',  true, @(x)islogical(x)&&isscalar(x));
 p.addParameter('CLimPctl',      [5 95], @(x)isnumeric(x)&&numel(x)==2);
 
-% NEW: real response names
+% real response names
 p.addParameter('ResponseLabels', {}, @(c)iscell(c)||isstring(c));
 
 p.addParameter('SaveDir',       '', @(s)ischar(s)||isstring(s));
 p.addParameter('FileTag',       '', @(s)ischar(s)||isstring(s));
 p.addParameter('ExportDPI',     300, @(x)isnumeric(x)&&isscalar(x)&&x>0);
 
-% House style knobs (replace MinFigPixels)
+% House style knobs
 p.addParameter('FigPosition',   [60 60 4200 2800], @(x)isnumeric(x)&&numel(x)==4);
 p.addParameter('FontName',      'Arial', @(s)ischar(s)||isstring(s));
-p.addParameter('FontSize',      18, @(x)isnumeric(x)&&isscalar(x));      % axis ticks
+p.addParameter('FontSize',      18, @(x)isnumeric(x)&&isscalar(x));      % base axis / cbar size
 p.addParameter('CellFontSize',  14, @(x)isnumeric(x)&&isscalar(x));      % text in cells
+
+% tighter layout / larger side-top labels
+p.addParameter('TopLabelFontSize',  26, @(x)isnumeric(x)&&isscalar(x));
+p.addParameter('SideLabelFontSize', 26, @(x)isnumeric(x)&&isscalar(x));
+p.addParameter('AxesPosition', [0.060 0.055 0.82 0.89], @(x)isnumeric(x)&&numel(x)==4);
 
 p.parse(FT_file, varargin{:});
 opt = p.Results;
@@ -179,36 +185,62 @@ fig = figure('Color','w','Renderer','opengl');
 set(fig,'Units','pixels','Position',opt.FigPosition);
 
 ax = axes(fig); %#ok<LAXES>
-set(ax,'FontName',opt.FontName,'FontSize',opt.FontSize);
+set(ax,'FontName',opt.FontName,'FontSize',opt.FontSize,'FontWeight','bold');
+
+% tighter layout to remove extra white space
+ax.Position = opt.AxesPosition;
 
 imagesc(ax, Z);
-set(ax,'YDir','normal');
+set(ax,'YDir','reverse');
 colormap(ax, char(opt.Colormap));
 caxis(ax, clim);
-colorbar(ax);
+
+hcb = colorbar(ax);
+switch lower(string(opt.TimeUnit))
+    case "s"
+        ylabel(hcb, 'Time (s)', 'Interpreter','none', ...
+            'FontName',opt.FontName, 'FontSize',opt.FontSize, 'FontWeight','bold');
+    case "step"
+        ylabel(hcb, 'Detected-transition step', 'Interpreter','none', ...
+            'FontName',opt.FontName, 'FontSize',opt.FontSize, 'FontWeight','bold');
+end
+
+% tighten colorbar placement too
+cbPos = hcb.Position;
+cbPos(1) = 0.895;
+cbPos(3) = 0.018;
+cbPos(2) = ax.Position(2);
+cbPos(4) = ax.Position(4);
+hcb.Position = cbPos;
 
 % P labels only on TOP
 ax.XAxisLocation = 'top';
 
 % ticks/labels
 ax.XTick = 1:nP;
-ax.XTickLabel = arrayfun(@(x)sprintf('P%d',x), Points, 'uni',0);
+ax.XTickLabel = arrayfun(@(x)sprintf('\\bf P%d',x), Points, 'uni',0);
 
 ax.YTick = 1:nR;
-% Use real response names (mapped by index r)
 yl = cell(nR,1);
 for ir=1:nR
-    yl{ir} = respLabels{Responses(ir)};
+    yl{ir} = ['\bf ' respLabels{Responses(ir)}];
 end
 ax.YTickLabel = yl;
 ax.TickLabelInterpreter = 'tex';
 
-% global axes labels (no title)
-xlabel(ax, 'Point', 'Interpreter','none');
-ylabel(ax, 'Response', 'Interpreter','none');
+% make top and side labels bigger
+ax.XAxis.FontSize = opt.TopLabelFontSize;
+ax.YAxis.FontSize = opt.SideLabelFontSize;
+
+% comment out Point / Response axis labels
+% xlabel(ax,'\bf Point','Interpreter','tex', ...
+%     'FontName',opt.FontName,'FontSize',opt.FontSize);
+% ylabel(ax,'\bf Response','Interpreter','tex', ...
+%     'FontName',opt.FontName,'FontSize',opt.FontSize);
 
 grid(ax,'off');
 box(ax,'on');
+set(ax,'TickLength',[0 0]);
 
 % ----------------------------
 % Cell text
@@ -250,8 +282,10 @@ if opt.ShowValues || opt.ShowFailedPct
             if strlength(txt)>0
                 text(ax, ip, ir, txt, ...
                     'HorizontalAlignment','center', ...
+                    'VerticalAlignment','middle', ...
                     'FontSize',opt.CellFontSize, ...
                     'FontName',opt.FontName, ...
+                    'FontWeight','normal', ...
                     'Interpreter','none', ...
                     'Color','k', ...
                     'BackgroundColor','w', ...

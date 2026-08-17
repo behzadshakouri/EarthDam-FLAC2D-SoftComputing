@@ -1,7 +1,11 @@
 function plot_pga_cdfs_grid70(FT_file, FULL_file, varargin)
-% 7x10 grid of empirical CDFs of PGA-at-failure (X(:,16))
+% 7x10 grid of empirical CDFs of PGA at the detected transition.
 % rows = Responses, cols = Points
 % Empty cells are shown as empty framed boxes (no skip text)
+%
+% Layout note:
+% - A dedicated top annotation band is added so P1...P10 sit above the
+%   first row of boxes rather than on the box line itself.
 
 % =========================
 % Parse
@@ -20,7 +24,7 @@ p.addParameter('ShowN',         true);
 
 p.addParameter('UseGlobalXLim', true);
 p.addParameter('XLimPctl',      [1 99]);
-p.addParameter('XLabel',        'PGA at failure');
+p.addParameter('XLabel',        'PGA at detected transition');
 
 p.addParameter('ResponseLabels', {}, @(c)iscell(c)||isstring(c));
 
@@ -31,9 +35,10 @@ p.addParameter('FigPosition',   [60 60 4200 2800]);
 p.addParameter('Padding',       'compact');
 p.addParameter('TileSpacing',   'compact');
 p.addParameter('FontName',      'Arial');
-p.addParameter('FontSize',      9);
-p.addParameter('LabelFontSize', 12);
-p.addParameter('LineWidth',     1.4);
+p.addParameter('FontSize',      12);
+p.addParameter('LabelFontSize', 18);
+p.addParameter('LineWidth',     1.6);
+p.addParameter('NFontSize',     11);
 
 p.parse(FT_file, FULL_file, varargin{:});
 opt = p.Results;
@@ -154,9 +159,12 @@ end
 fig = figure('Color','w','Renderer','opengl');
 set(fig,'Units','pixels','Position',opt.FigPosition);
 
+% Use normal padding for compatibility across MATLAB versions
 tl = tiledlayout(fig,nR,nP,...
-    'Padding',char(opt.Padding),...
+    'Padding','normal',...
     'TileSpacing',char(opt.TileSpacing));
+
+axGrid = gobjects(nR,nP);
 
 for ir = 1:nR
     r = Responses(ir);
@@ -164,6 +172,7 @@ for ir = 1:nR
         pnt = Points(ip);
 
         ax = nexttile(tl,(ir-1)*nP+ip);
+        axGrid(ir,ip) = ax;
         set(ax,'FontName',opt.FontName,'FontSize',opt.FontSize);
 
         box(ax,'on'); grid(ax,'on'); hold(ax,'on');
@@ -184,15 +193,15 @@ for ir = 1:nR
 
             if opt.ShowMedian
                 med = median(pf);
-                plot(ax,[med med],[0 1],'--','LineWidth',1,'HandleVisibility','off');
+                plot(ax,[med med],[0 1],'--','LineWidth',1.1,'HandleVisibility','off');
             end
 
             if opt.ShowN
                 text(ax,0.02,0.98,sprintf('n=%d',numel(pf)),...
                     'Units','normalized',...
                     'VerticalAlignment','top',...
-                    'FontWeight','bold',...
-                    'FontSize',8);
+                    'FontSize',opt.NFontSize,...
+                    'FontWeight','normal');
             end
         end
         hold(ax,'off');
@@ -204,23 +213,12 @@ for ir = 1:nR
                 'FontSize',opt.LabelFontSize,...
                 'Interpreter','tex');
         else
-            ax.YTickLabel=[];
-        end
-
-        % top P labels only (as text)
-        if ir==1
-            text(ax,0.5,1.08,sprintf('P%d',pnt),...
-                'Units','normalized',...
-                'HorizontalAlignment','center',...
-                'FontWeight','bold',...
-                'FontSize',opt.LabelFontSize,...
-                'Interpreter','none',...
-                'Clipping','off');
+            ax.YTickLabel = [];
         end
 
         % hide x tick labels except bottom row
         if ir~=nR
-            ax.XTickLabel=[];
+            ax.XTickLabel = [];
         end
     end
 end
@@ -229,6 +227,33 @@ xlabel(tl,opt.XLabel,'Interpreter','none',...
     'FontName',opt.FontName,'FontSize',opt.LabelFontSize);
 ylabel(tl,'CDF','Interpreter','none',...
     'FontName',opt.FontName,'FontSize',opt.LabelFontSize);
+
+% title(tl, sprintf('PGA-at-failure CDFs (%s mode)', char(opt.FailureMode)), ...
+%     'FontName', opt.FontName, 'FontSize', opt.LabelFontSize);
+
+% =========================
+% Column headers P1...P10
+% Dedicated top band above first row
+% =========================
+drawnow;
+
+for ip = 1:nP
+    axTop = axGrid(1,ip);
+    pos = axTop.Position;   % normalized figure coordinates
+
+    annotation(fig,'textbox', ...
+        [pos(1), pos(2)+pos(4)+0.010, pos(3), 0.028], ...
+        'String', sprintf('P%d', Points(ip)), ...
+        'Units', 'normalized', ...
+        'HorizontalAlignment', 'center', ...
+        'VerticalAlignment', 'middle', ...
+        'LineStyle', 'none', ...
+        'Interpreter', 'none', ...
+        'FontName', opt.FontName, ...
+        'FontSize', opt.LabelFontSize, ...
+        'FontWeight', 'bold', ...
+        'FitBoxToText', 'off');
+end
 
 % =========================
 % Save

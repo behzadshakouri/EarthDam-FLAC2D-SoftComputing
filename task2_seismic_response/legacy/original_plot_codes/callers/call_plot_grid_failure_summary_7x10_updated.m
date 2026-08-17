@@ -7,15 +7,7 @@ outDir    = 'E:\University\My Thesis\Flac model\New\Maku_PT2_Data\Failure plots'
 
 if ~exist(outDir,'dir'), mkdir(outDir); end
 
-ResponseLabels = {
-    '\Delta_x [m]'
-    '\Delta_y [m]'
-    '\sigma_{xx} [-]'
-    '\sigma_{yy} [-]'
-    'P_{pore} [-]'
-    '\delta\gamma [-]'
-    '\delta\nu_s [-]'
-};
+ResponseLabels = final_response_labels();
 
 plot_grid_failure_summary_7x10_updated(FT_file, FULL_file, ...
     'FailureMode','response', ...
@@ -43,4 +35,4 @@ plot_grid_failure_summary_7x10_updated(FT_file, FULL_file, ...
     'AxesPosition',[0.060 0.055 0.82 0.89], ...
     'TextLuminanceThresh',0.60);
 
-disp('DONE: Failure summary heatmap saved.');
+disp('DONE: Detected-transition summary heatmap saved.');

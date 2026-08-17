@@ -4,7 +4,7 @@ function plot_compare_models_metrics(varargin)
 % Reads newest "*_obs_pred.csv" inside <ModelRoot>\P#\R#\
 %
 % Requested style updates:
-% - Show R² and a10-index labels
+% - Show R-squared and a_{10}-index labels
 % - Legend (winner/top2) in top-right corner
 % - Dashboard: nRMSE / nMAE (no scale text), no SAFE-only in axis labels
 % - Remove titles everywhere (no subplot titles, no sgtitle)
@@ -259,10 +259,18 @@ for k=1:min(4, numel(plotMetricNames))
     % title(ax, ... ) removed
 
     if k == 1 && dotBy ~= "none"
-        lg = legend(ax, dotLabels, 'Location','eastoutside', 'Interpreter','tex');
+        % Use explicit scatter handles so legend colors correspond to the
+        % response groups rather than to boxplot line objects.
+        hh=gobjects(numel(dotLabels),1);
+        for g=1:numel(dotLabels)
+            hh(g)=scatter(ax,nan,nan,24,dotCmap(g,:),'filled');
+        end
+        lg = legend(ax,hh,dotLabels, 'Location','eastoutside', 'Interpreter','tex');
         title(lg, dotLegendTitle, 'Interpreter','none');
+        lg.Box='on'; lg.Color='w'; lg.FontName=opt.FontName;
     end
 
+    add_panel_label(ax,k,opt.FontName,opt.FontSize);
     hold(ax,'off');
 end
 
@@ -325,10 +333,16 @@ for k=1:min(4,numel(plotMetricNames))
 
     ylabel(ax, sprintf('Count (out of %d)', numel(caseKeys)), 'Interpreter','none');
 
-    % Legend top-right (fix overlap on ELM-ABC)
-    legend(ax, {'Winner','Top-2 (excluding wins)'}, 'Location','northeast', 'Interpreter','none');
+    % One horizontal legend outside the first panel avoids obscuring bars.
+    if k==1
+        lg=legend(ax, {'Winner','Top-2 (excluding wins)'}, ...
+            'Location','northoutside','Orientation','horizontal', ...
+            'Interpreter','none');
+        lg.Box='on'; lg.Color='w'; lg.FontName=opt.FontName;
+    end
 
     % NO subplot titles
+    add_panel_label(ax,k,opt.FontName,opt.FontSize);
     hold(ax,'off');
 end
 
@@ -396,6 +410,7 @@ for k=1:min(4,numel(plotMetricNames))
     end
 
     % NO subplot titles
+    add_panel_label(ax,k,opt.FontName,opt.FontSize);
     hold(ax,'off');
 end
 
@@ -413,6 +428,14 @@ function save_png_rgbimage(fig, filename, dpi)
 drawnow;
 img = print(fig,'-RGBImage',sprintf('-r%d',dpi));
 imwrite(img, filename);
+end
+
+function add_panel_label(ax,k,fontName,fontSize)
+letters='abcd';
+text(ax,0.015,0.975,sprintf('(%c)',letters(k)), ...
+    'Units','normalized','HorizontalAlignment','left', ...
+    'VerticalAlignment','top','FontName',fontName, ...
+    'FontSize',fontSize,'FontWeight','bold','Color','k');
 end
 
 function r = make_row(model, pnt, rsp, R2, RMSE, MAE, a10, NRMSE, NMAE, normScaleUsed, nSafe, file)
@@ -625,7 +648,7 @@ switch metric
     case 'R2'
         ylab = 'R^{2}';
     case 'a10'
-        ylab = 'a10-index';
+        ylab = 'a_{10}-index';
     case 'RMSE'
         if errScale == "log"
             ylab = 'RMSE (log scale)';
@@ -652,7 +675,7 @@ function s = metric_display(metric)
 % For Fig3 text only (uses your preferred names)
 switch metric
     case 'R2',    s = 'R^{2}';
-    case 'a10',   s = 'a10';
+    case 'a10',   s = 'a_{10}';
     case 'NRMSE', s = 'nRMSE';
     case 'NMAE',  s = 'nMAE';
     otherwise,    s = metric;

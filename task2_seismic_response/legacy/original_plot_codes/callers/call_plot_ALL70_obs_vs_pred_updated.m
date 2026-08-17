@@ -16,15 +16,7 @@ end
 Points = 1:10;
 Responses = 1:7;
 
-ResponseLabels = {
-    '\Delta_x [m]'
-    '\Delta_y [m]'
-    '\sigma_{xx} [-]'
-    '\sigma_{yy} [-]'
-    'P_{pore} [-]'
-    '\delta\gamma [-]'
-    '\delta\nu_s [-]'
-};
+ResponseLabels = final_response_labels();
 
 pngOut = fullfile(outRoot, ['ALL70_SAFE_obs_vs_pred_' MethodTag '.png']);
 

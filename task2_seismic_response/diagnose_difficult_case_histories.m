@@ -185,17 +185,33 @@ for k = 1:numel(pick)
     plot(st*cfg.time_step_s,yt,'k-','LineWidth',1.15); hold on;
     plot(st*cfg.time_step_s,yp,'r--','LineWidth',1.05);
     grid on; box on;
-    ylabel('Response');
+    ylabel(response_axis_label(rows.response(1)),'Interpreter','tex');
     title(sprintf('%s: simulation %d, R^2=%.3f, nRMSE=%.3f, peak-time error=%.3f s', ...
         labels{min(k,numel(labels))},row.simulation_id,row.R2,row.nRMSE, ...
         row.peak_time_error_s));
     if k == 1, legend('FLAC2D','Prediction','Location','best'); end
 end
 xlabel('Time (s)');
-sgtitle(sprintf('%s P%d-R%d: held-out realization histories', ...
-    char(rows.model(1)),rows.point(1),rows.response(1)));
+sgtitle(sprintf('%s: held-out histories at P%d (%s)', ...
+    display_method_name(char(rows.model(1))),rows.point(1), ...
+    response_symbol(rows.response(1))),'Interpreter','tex');
 name = sprintf('%s_P%d_R%d_representative_histories.png', ...
     char(rows.model(1)),rows.point(1),rows.response(1));
 print(f,fullfile(out_dir,name),'-dpng','-r300');
 close(f);
+end
+
+function label=response_axis_label(r)
+labels=final_response_labels(); label=labels{r};
+end
+
+function symbol=response_symbol(r)
+D=response_dictionary(); symbol=char(D.symbol_tex(D.index==r));
+end
+
+function name=display_method_name(method)
+name=upper(char(method));
+name=strrep(name,'ELMIGWO','ELM-IGWO');
+name=strrep(name,'ELMACOR','ELM-ACOR');
+name=strrep(name,'ELMABC','ELM-ABC');
 end

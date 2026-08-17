@@ -1,7 +1,7 @@
 function plot_grid_failure_summary_7x10(FT_file, FULL_file, varargin)
 % plot_grid_failure_summary_7x10(FT_file, FULL_file, ...)
 % One "all-in-one" heatmap for 70 cases (R rows x P cols).
-% Uses FT for failure timing (failed_sim/step_fail/fail_time), FULL for PGA at failure X(:,16).
+% Uses the legacy FT fields to summarize operationally detected transitions.
 %
 % ColorBy:
 %   't_median'   (default) median failure time [s]
@@ -17,6 +17,7 @@ function plot_grid_failure_summary_7x10(FT_file, FULL_file, varargin)
 % - Response names via ResponseLabels (tex)
 % - Robust PNG saving via print('-RGBImage')
 % - Luminance-based text color using current colormap
+% - First response in Responses appears at the TOP
 
 % =========================
 % Parse inputs
@@ -30,7 +31,7 @@ p.addParameter('Responses',     1:7,  @(x)isnumeric(x)&&isvector(x));
 p.addParameter('FailureMode',   'response', @(s)ischar(s)||isstring(s));
 
 p.addParameter('ColorBy',       't_median', @(s)ischar(s)||isstring(s)); % t_median|pga_median|fail_pct|fail_count
-p.addParameter('FailCountMode', 'count',    @(s)ischar(s)||isstring(s)); % percent|count (affects annotation label only)
+p.addParameter('FailCountMode', 'count',    @(s)ischar(s)||isstring(s)); % percent|count
 
 p.addParameter('ShowValues',    true, @(x)islogical(x)&&isscalar(x));
 p.addParameter('ValueFormatT',  '%.2f', @(s)ischar(s)||isstring(s));   % seconds
@@ -47,15 +48,20 @@ p.addParameter('ResponseLabels', {}, @(c)iscell(c)||isstring(c));
 p.addParameter('SaveDir',       '', @(s)ischar(s)||isstring(s));
 p.addParameter('ExportDPI',     300, @(x)isnumeric(x)&&isscalar(x));
 
-% House style knobs (replace MinFigPixels)
+% House style knobs
 p.addParameter('FigPosition',   [60 60 4200 2800], @(x)isnumeric(x)&&numel(x)==4);
 p.addParameter('FontName',      'Arial', @(s)ischar(s)||isstring(s));
-p.addParameter('AxisFontSize',  18, @(x)isnumeric(x)&&isscalar(x));
-p.addParameter('CellFontSize',  11, @(x)isnumeric(x)&&isscalar(x));
-p.addParameter('FontWeight',    'bold', @(s)ischar(s)||isstring(s));
+p.addParameter('AxisFontSize',  20, @(x)isnumeric(x)&&isscalar(x));
+p.addParameter('CellFontSize',  12, @(x)isnumeric(x)&&isscalar(x));
+p.addParameter('FontWeight',    'normal', @(s)ischar(s)||isstring(s)); % cell text only
+
+% Tick-label sizing / layout
+p.addParameter('TopLabelFontSize',  26, @(x)isnumeric(x)&&isscalar(x));
+p.addParameter('SideLabelFontSize', 26, @(x)isnumeric(x)&&isscalar(x));
+p.addParameter('AxesPosition', [0.060 0.055 0.82 0.89], @(x)isnumeric(x)&&numel(x)==4);
 
 % Text contrast
-p.addParameter('TextLuminanceThresh', 0.60, @(x)isnumeric(x)&&isscalar(x)); % >thresh => black text else white
+p.addParameter('TextLuminanceThresh', 0.60, @(x)isnumeric(x)&&isscalar(x));
 p.addParameter('TextNaNColor', [0.25 0.25 0.25], @(x)isnumeric(x)&&numel(x)==3);
 
 p.parse(FT_file, FULL_file, varargin{:});
@@ -159,7 +165,7 @@ for ir = 1:nR
         tvals = tvals(isfinite(tvals) & tvals >= 0);
         if ~isempty(tvals), Tmed(ir,ip) = median(tvals); end
 
-        % ---- median PGA at failure (needs step_fail) ----
+        % ---- median PGA at failure ----
         P = FULL.Point(pnt);
         if ~isfield(P,'X') || size(P.X,2) < 16
             PGAmed(ir,ip) = nan;
@@ -194,16 +200,16 @@ colorBy = lower(string(opt.ColorBy));
 switch colorBy
     case "t_median"
         Z = Tmed;
-        cbarLabel = 'Median failure time (s)';
+        cbarLabel = 'Median detected-transition time (s)';
     case "pga_median"
         Z = PGAmed;
-        cbarLabel = 'Median failure PGA (X(:,16))';
+        cbarLabel = 'Median PGA at detected transition';
     case "fail_pct"
         Z = Fpct;
-        cbarLabel = 'Failed sims (%)';
+        cbarLabel = 'Realizations with detected transition (%)';
     case "fail_count"
         Z = Fcnt;
-        cbarLabel = 'Failed sims (count)';
+        cbarLabel = 'Realizations with detected transition (count)';
     otherwise
         error('Unknown ColorBy="%s".', opt.ColorBy);
 end
@@ -233,33 +239,45 @@ fig = figure('Color','w','Renderer','opengl');
 set(fig,'Units','pixels','Position',opt.FigPosition);
 
 ax = axes(fig); %#ok<LAXES>
-set(ax,'FontName',opt.FontName,'FontSize',opt.AxisFontSize);
+set(ax,'FontName',opt.FontName,'FontSize',opt.AxisFontSize,'FontWeight','bold');
+
+% tighter layout to reduce free space
+ax.Position = opt.AxesPosition;
 
 imagesc(ax, Z);
-set(ax,'YDir','normal');
+set(ax,'YDir','reverse');   % first response row appears at the TOP
 colormap(ax, char(opt.Colormap));
 caxis(ax, clim);
 
 hcb = colorbar(ax);
-ylabel(hcb, cbarLabel, 'Interpreter','none', 'FontName',opt.FontName, 'FontSize',opt.AxisFontSize);
+ylabel(hcb, cbarLabel, 'Interpreter','none', ...
+    'FontName',opt.FontName, 'FontSize',opt.AxisFontSize);
+
+% slightly tighten colorbar too
+cbPos = hcb.Position;
+cbPos(1) = 0.895;
+cbPos(3) = 0.018;
+cbPos(2) = ax.Position(2);
+cbPos(4) = ax.Position(4);
+hcb.Position = cbPos;
 
 % P labels on TOP only
 ax.XAxisLocation = 'top';
 
 ax.XTick = 1:nP;
-ax.XTickLabel = arrayfun(@(x)sprintf('P%d',x), Points, 'uni',0);
+ax.XTickLabel = arrayfun(@(x)sprintf('\\bf P%d',x), Points, 'uni',0);
 
 ax.YTick = 1:nR;
 yl = cell(nR,1);
 for ir=1:nR
-    yl{ir} = respLabels{Responses(ir)};
+    yl{ir} = ['\bf ' respLabels{Responses(ir)}];
 end
 ax.YTickLabel = yl;
 ax.TickLabelInterpreter = 'tex';
 
-% minimal axis labels (keep or remove as you like)
-xlabel(ax, 'Point',    'Interpreter','none');
-ylabel(ax, 'Response', 'Interpreter','none');
+% larger top/side labels
+ax.XAxis.FontSize = opt.TopLabelFontSize;
+ax.YAxis.FontSize = opt.SideLabelFontSize;
 
 set(ax,'TickLength',[0 0]);
 box(ax,'on');
@@ -293,7 +311,7 @@ if opt.ShowValues
 
             txt = sprintf('t=%s\nPGA=%s\nfail=%s', sT, sP, sF);
 
-            % luminance-based text color (based on Z)
+            % luminance-based text color
             z = Z(ir,ip);
             if isfinite(z)
                 tc = pick_text_color_from_colormap(z, clim, cmap, opt.TextLuminanceThresh);
@@ -306,7 +324,7 @@ if opt.ShowValues
                 'VerticalAlignment','middle', ...
                 'FontName',opt.FontName, ...
                 'FontSize',opt.CellFontSize, ...
-                'FontWeight',char(opt.FontWeight), ...
+                'FontWeight','normal', ...
                 'Interpreter','none', ...
                 'Color', tc);
         end

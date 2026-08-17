@@ -9,15 +9,7 @@ baseRoot = 'E:\University\My Thesis\Flac model\New\Maku_PT2_Data';
 Models   = {'ELM','ELM-IGWO','ELM-ACOR','ELM-ABC'};
 Baseline = 'ELM';
 
-ResponseLabels = {
-    '\Delta_x [m]'
-    '\Delta_y [m]'
-    '\sigma_{xx} [-]'
-    '\sigma_{yy} [-]'
-    'P_{pore} [-]'
-    '\delta\gamma [-]'
-    '\delta\nu_s [-]'
-};
+ResponseLabels = final_response_labels();
 
 ResponseMarkers = {'o','s','^','d','p','h','*'};
 

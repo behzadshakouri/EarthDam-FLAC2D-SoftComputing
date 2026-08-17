@@ -25,13 +25,15 @@ if opt.Silent
 end
 
 roots = export_original_plot_inputs(resultsDir);
+responseLabels = final_response_labels();
 models = {'ELM','ELMABC','ELMACOR','ELMIGWO'};
 for im = 1:numel(models)
     method = models{im}; outRoot = roots.(method);
     if ~isfolder(outRoot), continue; end
     plotDir = fullfile(resultsDir,'plots','original','latest',method);
     if ~isfolder(plotDir), mkdir(plotDir); end
-    plot_grid_obs_vs_pred_7x10_updated(outRoot,'Points',points,'Responses',responses,'MethodTag',method, ...
+    plot_grid_obs_vs_pred_7x10(outRoot,'Points',points,'Responses',responses,'MethodTag',method, ...
+        'ResponseLabels',responseLabels, ...
         'SavePNG',fullfile(plotDir,[method '_obs_vs_pred.png']), ...
         'FigPosition',[20 20 max(1600,900*numel(points)) max(1200,900*numel(responses))]);
     plot_grid_timeseries_obs_pred_7x10(outRoot,'Points',points,'Responses',responses, ...
@@ -58,8 +60,16 @@ for im = 1:numel(models)
 end
 available = models(cellfun(@(m) ~isempty(dir(fullfile(resultsDir,m,'P*_R*.mat'))),models));
 if numel(available) >= 2
-    displayNames = strrep(available,{'ELMIGWO','ELMACOR','ELMABC'}, ...
-        {'ELM-IGWO','ELM-ACOR','ELM-ABC'});
+    % Explicit mapping is compatible with MATLAB R2020a; vectorized STRREP
+    % requires equal-sized nonscalar cell arrays in that release.
+    displayNames = available;
+    for i=1:numel(displayNames)
+        switch displayNames{i}
+            case 'ELMIGWO', displayNames{i}='ELM-IGWO';
+            case 'ELMACOR', displayNames{i}='ELM-ACOR';
+            case 'ELMABC',  displayNames{i}='ELM-ABC';
+        end
+    end
     rootByModel = struct();
     for i=1:numel(available)
         rootByModel.(strrep(displayNames{i},'-','_')) = roots.(available{i});
@@ -68,8 +78,9 @@ if numel(available) >= 2
     if ~isfolder(compareDir), mkdir(compareDir); end
     baseline = displayNames{1};
     if any(strcmp(displayNames,'ELM')), baseline='ELM'; end
-    plot_compare_models_metrics_updated('Models',displayNames, ...
+    plot_compare_models_metrics('Models',displayNames, ...
         'Baseline',baseline,'RootByModel',rootByModel,'Points',points,'Responses',responses, ...
+        'ResponseLabels',responseLabels, ...
         'OutRoot',fullfile(resultsDir,'original_plot_inputs'),'SaveDir',compareDir);
     if opt.CloseFigures, close_new_figures(oldFigures); end
 else

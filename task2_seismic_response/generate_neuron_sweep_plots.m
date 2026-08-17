@@ -11,7 +11,7 @@ if ~isfolder(outDir),mkdir(outDir);end
 methods={'ELM','ELMABC','ELMACOR','ELMIGWO'};
 labels={'ELM','ELM-ABC','ELM-ACOR','ELM-IGWO'};
 metrics={'mean_R2','mean_nRMSE','mean_nMAE','mean_a10'};
-ylabels={'Mean R^2','Mean nRMSE','Mean nMAE','Mean a10'};
+ylabels={'Mean R^2','Mean nRMSE','Mean nMAE','Mean a_{10}'};
 for j=1:numel(metrics)
     f=figure('Visible','off','Color','w','Position',[100 100 900 620]);hold on;
     for i=1:numel(methods)
