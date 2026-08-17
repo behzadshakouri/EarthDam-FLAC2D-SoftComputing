@@ -1,13 +1,14 @@
 function plot_grid_failure_summary_7x10(FT_file, FULL_file, varargin)
 % plot_grid_failure_summary_7x10(FT_file, FULL_file, ...)
-% One "all-in-one" heatmap for 70 cases (R rows x P cols).
-% Uses the legacy FT fields to summarize operationally detected transitions.
+% One "all-in-one" transition-summary heatmap for 70 cases (R rows x P cols).
+% The legacy input schema retains failed_sim/step_fail/fail_time field names,
+% but all displayed terminology describes operationally detected transitions.
 %
 % ColorBy:
-%   't_median'   (default) median failure time [s]
-%   'pga_median'          median failure PGA at failure
-%   'fail_pct'            percent failed sims
-%   'fail_count'          count failed sims
+%   't_median'   (default) median detected-transition time [s]
+%   'pga_median'          median PGA at the detected transition
+%   'fail_pct'            percent of realizations with a detected transition
+%   'fail_count'          number of realizations with a detected transition
 %
 % FailureMode: 'response' | 'point' | 'global'
 %
@@ -309,14 +310,18 @@ if opt.ShowValues
                     error('FailCountMode must be "percent" or "count".');
             end
 
-            txt = sprintf('t=%s\nPGA=%s\nfail=%s', sT, sP, sF);
+            if isfinite(fcnt) && fcnt == 0
+                txt = sprintf('No transition\nn=0');
+            else
+                txt = sprintf('t=%s\nPGA=%s\nn=%s', sT, sP, sF);
+            end
 
             % luminance-based text color
             z = Z(ir,ip);
             if isfinite(z)
                 tc = pick_text_color_from_colormap(z, clim, cmap, opt.TextLuminanceThresh);
             else
-                tc = opt.TextNaNColor;
+                tc = 'w';
             end
 
             text(ax, ip, ir, txt, ...
