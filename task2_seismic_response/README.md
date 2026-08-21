@@ -68,6 +68,19 @@ Set non-discoverable paths in `config/task2_user_paths.m`. The complete FLAC2D
 database is not redistributed; `reference_results/` provides auditable metrics
 and the synthetic test provides a data-independent structural check.
 
+To recreate the IAA methodology panels in manuscript Figure 3 from the signed
+acceleration record, run:
+
+```matlab
+generate_iaa_methodology_figures('E:\path\to\IAA-20sec.xlsx');
+```
+
+The command creates the manuscript panels `a_PSA_heatmap.png` and
+`b_PSV_heatmap.png`, together with the separate IAA acceleration-and-envelope
+illustration `IAA.png`, under `results/final_manuscript_figures/`. The current
+manuscript has no Figure 3(c). See `docs/FINAL_MANUSCRIPT_PLOTS.md` for input,
+unit, and plotting options.
+
 ## Canonical workflow
 
 ```matlab
