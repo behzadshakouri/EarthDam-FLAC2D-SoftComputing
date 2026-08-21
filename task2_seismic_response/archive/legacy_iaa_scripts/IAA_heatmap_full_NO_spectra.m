@@ -1,4 +1,4 @@
-%% IAA_heatmap_full_NO_spectra_checked_updated.m
+%% IAA_heatmap_full_NO_spectra.m
 % Reads an IAA record (time in seconds, acceleration in g) and exports:
 %  IAA: IAA acceleration + PGA envelopes (running max, linearized, stepped)
 %  a_PSA_heatmap: PSA heatmap (Period × Time) with contour lines
