@@ -2,7 +2,7 @@
 
 ## Current release
 
-- Preserve Task 1 as publication context without inventing missing metadata.
+- Preserve the verified Task 1 journal and conference publication record and add reproduction materials only when they are reviewable.
 - Publish the complete Task 2 seismic-response reproducibility workflow.
 - Keep the FLAC2D runner in its independent general-purpose repository.
 
