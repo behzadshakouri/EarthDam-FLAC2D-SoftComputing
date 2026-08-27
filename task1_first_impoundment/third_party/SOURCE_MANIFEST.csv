@@ -1,0 +1,8 @@
+component,file,source,version_or_commit,sha256
+YPEA,ypea/LICENSE,https://github.com/smkalami/ypea,192a610fdb67f0bdfb8a779a21bb765d9cfaeadb,0f6702c5ad28b2f71c79c520eff6bafcd446f76e67fc8aa97e5294ce6f0b16f1
+YPEA,ypea/src/ypea/ypea_abc.m,https://github.com/smkalami/ypea,192a610fdb67f0bdfb8a779a21bb765d9cfaeadb,bcfb2a470eef7f9077e2427ab844de595770f5a29b4907d511553c67202df505
+YPEA,ypea/src/ypea/ypea_acor.m,https://github.com/smkalami/ypea,192a610fdb67f0bdfb8a779a21bb765d9cfaeadb,1f43ab22ea1fa72d9352b34c5a48fa9465792b8c0f7121b89ba9ab1bea73c3c6
+I-GWO,igwo/LICENSE,https://www.mathworks.com/matlabcentral/fileexchange/81253-improved-grey-wolf-optimizer-i-gwo,1.0,98c8f96fddc8abb1a6e48e4700094a0c590e526fcbccdfab5785c48e4be2d088
+I-GWO,igwo/IGWO.m,https://www.mathworks.com/matlabcentral/fileexchange/81253-improved-grey-wolf-optimizer-i-gwo,1.0,010d04a9525c92bfe658bfac370ca89a4082c659a5e397246c926ce98c027460
+I-GWO,igwo/initialization.m,project-separated helper from I-GWO source,1.0,54424f6908aaf604fa5b9918de6535072eeb8de45b5f378bdbbf016ada767547
+I-GWO,igwo/boundConstraint.m,project-separated helper from I-GWO source,1.0,56427c41e992f26b20dfad15fa364cadb56d68d1a15cfb609c94dc14be643986

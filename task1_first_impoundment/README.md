@@ -1,46 +1,50 @@
-# Task 1: first-impoundment study
+# Task 1: first-impoundment response and factor-of-safety surrogates
 
-Task 1 covers the published first-impoundment modeling and sensitivity-analysis
-components of the broader earth-dam research program. This directory records
-the authoritative publication and citation metadata. It does not currently
-claim to provide a complete reproduction package.
+This package reproduces the soft-computing workflow reported for the first
+impoundment analysis of Maku earth dam. It follows the repository conventions
+used by `task2_seismic_response` while retaining Task 1's distinct static
+response, sample-size, and factor-of-safety experiments.
 
-## Published research
+## Published configuration
 
-### Journal article: coupled numerical--soft computing modeling
+- 500 FLAC2D realizations generated from 18 retained uncertain inputs.
+- Ten quantities of interest (QoIs).
+- Four scalar responses at each QoI: horizontal displacement, vertical
+  displacement, horizontal stress, and vertical stress (40 cases).
+- Factor of safety as a separate target.
+- Sample sizes 50, 100, 150, 200, 300, 400, and 500.
+- A 70/30 development/test split; at 200 samples this is 140/60.
+- ELM, ELM-ABC, ELM-ACOR, and ELM-IGWO.
+- Sigmoid activation, `[-1,1]` scaling, and RMSE fitness.
+- Evaluation with R2, RMSE, MAE, and a10.
 
-B. Shakouri, M. Mohammadi, M. J. S. Safari, and M. A. Hariri-Ardebili,
-“A collaborative numerical simulation-soft computing approach for earth dams
-first impoundment modeling,” *Computers and Geotechnics*, vol. 164,
-art. 105814, 2023.
+## Quick start
 
-- DOI: https://doi.org/10.1016/j.compgeo.2023.105814
-- Publisher: https://www.sciencedirect.com/science/article/pii/S0266352X23005712
+1. Set local input paths in `config/task1_user_paths.m`.
+2. Run `setup_task1`.
+3. Run `check_task1_dependencies`.
+4. Run `run_task1_smoke_test` before a production experiment.
+5. Run `run_task1_production` after confirming the configuration.
 
-### Conference paper: first-impoundment response analysis
+Large numerical datasets, generated results, FLAC2D case-study files, FISH
+files, and machine-specific paths are not distributed in the canonical
+package. Original MATLAB scripts are preserved under `legacy` for provenance
+and are not canonical runtime dependencies.
 
-B. Shakouri, M. Mohammadi, M. J. S. Safari, and M. A. Hariri-Ardebili,
-“First Impoundment Response Analysis of an Earth Dam using Coupled
-Numerical-Soft Computing technique,” *IWA World Water Congress & Exhibition
-2022*, Copenhagen, Denmark, 2022.
+## Data availability
 
-### Journal article: sensitivity analysis
+The required private inputs are `outputs_gp.mat` and `PT1_FoS_SCT.xlsx`.
+Their contracts are documented in `docs/RAW_DATA_CONTRACT.md`. The complete
+database is available from the corresponding author upon reasonable request.
 
-B. Shakouri, M. Mohammadi, and M. J. S. Safari, “Sensitivity analysis for
-uncertainty quantification in earth dams modeling (Case study: Maku dam),”
-*Water and Irrigation Management*, vol. 14, no. 1, pp. 75--90, 2024.
+## Related automation
 
-- DOI: https://doi.org/10.22059/jwim.2023.360452.1084
-- Journal record: https://jwim.ut.ac.ir/article_94258.html?lang=en
-
-## Relationship to the repository
-
-These publications document the Task 1 research context from which parts of the
-generalized MATLAB--FLAC2D automation workflow were later derived. The reusable
-automation framework is maintained independently at
+General MATLAB-FLAC2D batch automation is maintained separately at
 https://github.com/behzadshakouri/Dam_Model_FLAC2D_Runner.
 
-Large FLAC2D databases and case-specific proprietary model files are not
-included. Publication metadata for Task 1 is also provided in
-[`CITATION.cff`](CITATION.cff). Future Task 1 reproducibility materials may be
-added without changing the archived Task 2 workflow.
+## Publication
+
+B. Shakouri et al., "A collaborative numerical simulation-soft computing
+approach for earth dams first impoundment modeling," *Computers and
+Geotechnics*, 164, 105814, 2023.
+https://doi.org/10.1016/j.compgeo.2023.105814
