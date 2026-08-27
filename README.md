@@ -15,7 +15,7 @@ evaluation, figures, and reproducibility records.
 
 | Task | Scope | Repository status |
 |---|---|---|
-| Task 1 | First-impoundment research | Publication context only; bibliographic record to be added from the published article |
+| Task 1 | First-impoundment modeling and sensitivity analysis | Published journal and conference record documented in `task1_first_impoundment/` |
 | Task 2 | Seismic-response simulation and ELM-based surrogates | Complete reproducibility package |
 | Tasks 3-4 | Future research extensions | Added only when publishable code or documentation is available |
 
@@ -33,6 +33,15 @@ EarthDam-FLAC2D-SoftComputing/
 ├── task1_first_impoundment/
 └── task2_seismic_response/
 ```
+
+### Task 1: first impoundment
+
+The publication record for Task 1 is documented under
+[`task1_first_impoundment/`](task1_first_impoundment/). It includes the
+published Computers and Geotechnics article, the IWA World Water Congress &
+Exhibition 2022 conference paper, and the 2024 sensitivity-analysis article in
+Water and Irrigation Management. Task 1 currently provides publication and
+citation metadata rather than a complete reproduction package.
 
 ### Task 2: seismic response
 
