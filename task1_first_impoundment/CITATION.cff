@@ -1,0 +1,72 @@
+cff-version: 1.2.0
+message: "Please cite the Task 1 publication most relevant to the materials you use."
+title: "Task 1: Earth-dam first-impoundment modeling and sensitivity analysis"
+type: dataset
+authors:
+  - family-names: Shakouri
+    given-names: Behzad
+  - family-names: Mohammadi
+    given-names: Mirali
+  - family-names: Safari
+    given-names: Mir Jafar Sadegh
+  - family-names: Hariri-Ardebili
+    given-names: Mohammad Amin
+repository-code: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing"
+keywords:
+  - earth dam
+  - first impoundment
+  - FLAC2D
+  - soft computing
+  - uncertainty quantification
+  - sensitivity analysis
+
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Shakouri
+      given-names: Behzad
+    - family-names: Mohammadi
+      given-names: Mirali
+    - family-names: Safari
+      given-names: Mir Jafar Sadegh
+    - family-names: Hariri-Ardebili
+      given-names: Mohammad Amin
+  title: "A collaborative numerical simulation-soft computing approach for earth dams first impoundment modeling"
+  journal: "Computers and Geotechnics"
+  year: 2023
+  volume: 164
+  pages: 105814
+  doi: "10.1016/j.compgeo.2023.105814"
+
+references:
+  - type: conference-paper
+    authors:
+      - family-names: Shakouri
+        given-names: Behzad
+      - family-names: Mohammadi
+        given-names: Mirali
+      - family-names: Safari
+        given-names: Mir Jafar Sadegh
+      - family-names: Hariri-Ardebili
+        given-names: Mohammad Amin
+    title: "First Impoundment Response Analysis of an Earth Dam using Coupled Numerical-Soft Computing technique"
+    conference:
+      name: "IWA World Water Congress & Exhibition 2022"
+    year: 2022
+
+  - type: article
+    authors:
+      - family-names: Shakouri
+        given-names: Behzad
+      - family-names: Mohammadi
+        given-names: Mirali
+      - family-names: Safari
+        given-names: Mir Jafar Sadegh
+    title: "Sensitivity analysis for uncertainty quantification in earth dams modeling (Case study: Maku dam)"
+    journal: "Water and Irrigation Management"
+    year: 2024
+    volume: 14
+    issue: 1
+    start: 75
+    end: 90
+    doi: "10.22059/jwim.2023.360452.1084"
