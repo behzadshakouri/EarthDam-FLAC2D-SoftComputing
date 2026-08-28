@@ -44,6 +44,7 @@ post-failure predictors.
 
 - MATLAB R2020a or newer
 - Statistics and Machine Learning Toolbox (`pdist`, `pdist2`, `squareform`)
+- Deep Learning Toolbox (`mapminmax`)
 - Sufficient memory for the consolidated 600,000-row dataset
 
 YPEA and I-GWO sources required by the supplied method lineage are bundled

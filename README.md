@@ -20,6 +20,8 @@ evaluation, figures, and reproducibility records.
 | Tasks 3-4 | Future research extensions | Added only when publishable code or documentation is available |
 
 The repository intentionally contains no empty Task 3 or Task 4 directories.
+See [`REPOSITORY_STATUS.md`](REPOSITORY_STATUS.md) for the latest structural
+audit and remaining environment-specific validation steps.
 
 ## Current structure
 
@@ -29,6 +31,7 @@ EarthDam-FLAC2D-SoftComputing/
 ├── LICENSE
 ├── CITATION.cff
 ├── ROADMAP.md
+├── REPOSITORY_STATUS.md
 ├── common/
 ├── task1_first_impoundment/
 └── task2_seismic_response/

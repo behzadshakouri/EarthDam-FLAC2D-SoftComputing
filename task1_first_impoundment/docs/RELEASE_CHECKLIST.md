@@ -4,7 +4,7 @@
 - [ ] Run `check_task1_dependencies`.
 - [ ] Validate `outputs_gp.mat` and `PT1_FoS_SCT.xlsx` contracts.
 - [ ] Complete all 40 response-location cases for seven sample sizes.
-- [ ] Complete the four FoS models.
+- [ ] Complete all 28 FoS method/sample-size cases.
 - [ ] Compare canonical metrics with the published tables.
 - [ ] Rebuild and visually review manuscript figures.
 - [ ] Confirm no raw data, results, case-study files, or personal paths leaked.
