@@ -16,6 +16,9 @@ if ~isempty(cfg.raw.fos_data_file) && isfile(cfg.raw.fos_data_file)
     A=A(1:500,1:19);
     assert(isequal(size(A),[500 19]) && all(isfinite(A(:))), ...
         'Task1:BadFoS','FoS workbook must contain finite data in A1:S500.');
+    assert(isequal(A(:,1:18),S.RVs), ...
+        'Task1:FoSInputMismatch', ...
+        'FoS predictors A1:R500 must exactly match RVs in outputs_gp.mat.');
     D.fos_X=A(:,1:18); D.fos_y=A(:,19);
 else
     D.fos_X=[]; D.fos_y=[];

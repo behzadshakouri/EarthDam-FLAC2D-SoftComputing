@@ -14,7 +14,10 @@ cfg.paper_selected_development_count=140;
 cfg.paper_selected_test_count=60;
 cfg.scaling_range=[-1 1];
 cfg.activation='sigmoid';
-cfg.configuration_trials=100;
+% Provenance only: the original study used 100 historical trials to select
+% activation/hidden-neuron settings. Canonical production uses the selected
+% counts preserved below; it does not repeat that undocumented random search.
+cfg.historical_configuration_trials=100;
 cfg.methods={'ELM','ELMABC','ELMACOR','ELMIGWO'};
 cfg.response_names={'Xdisp','Ydisp','Sxx','Syy'};
 cfg.response_symbols={'delta_x','delta_y','sigma_xx','sigma_yy'};
@@ -24,7 +27,6 @@ cfg.raw=task1_user_paths(root);
 cfg.data_dir=fullfile(root,'data');
 cfg.results_dir=fullfile(root,'results','final_production');
 cfg.production.resume=true;
-cfg.production.save_predictions=true;
 cfg.production.ridge=1e-4;
 cfg.production.response_hidden_neurons=struct( ...
     'ELM',16,'ELMABC',2,'ELMACOR',3,'ELMIGWO',14);
@@ -39,4 +41,5 @@ cfg.igwo.max_iter=1000; cfg.igwo.pop_size=30;
 if exist('task1_user_settings','file')==2, cfg=task1_user_settings(cfg); end
 assert(cfg.num_points*cfg.num_responses==40);
 assert(cfg.paper_selected_development_count+cfg.paper_selected_test_count==200);
+assert(isequal(cfg.scaling_range,[-1 1]) && strcmpi(cfg.activation,'sigmoid'));
 end

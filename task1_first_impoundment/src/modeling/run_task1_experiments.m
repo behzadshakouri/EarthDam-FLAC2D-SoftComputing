@@ -28,15 +28,35 @@ for ns=cfg.sample_sizes
         end
     end
 end
-if ~isempty(D.fos_y)
-    split=create_task1_split(500,cfg.development_fraction,cfg.seed+9000);
-    for m=1:numel(cfg.methods)
-        method=cfg.methods{m}; h=cfg.production.fos_hidden_neurons.(method);
-        R=fit_task1_case(D.fos_X,D.fos_y,method,h,split,cfg,cfg.seed+9100+m);
-        save(fullfile(cfg.results_dir,sprintf('%s_FoS_n500.mat',method)),'R','-v7.3');
-    end
-end
 summary=cell2table(rows,'VariableNames', ...
     {'method','sample_size','point','response','R2_test','RMSE_test','MAE_test','a10_test'});
 writetable(summary,fullfile(cfg.results_dir,'task1_all_model_metrics.csv'));
+
+if ~isempty(D.fos_y)
+    fosRows={}; fosCaseNo=0;
+    for ns=cfg.sample_sizes
+        selected=masterOrder(1:ns);
+        splitLocal=create_task1_split(ns,cfg.development_fraction,cfg.seed+ns);
+        split.development=selected(splitLocal.development);
+        split.test=selected(splitLocal.test);
+        for m=1:numel(cfg.methods)
+            method=cfg.methods{m}; fosCaseNo=fosCaseNo+1;
+            out=fullfile(cfg.results_dir,sprintf('%s_FoS_n%d.mat',method,ns));
+            if cfg.production.resume && isfile(out), S=load(out,'R'); R=S.R;
+            else
+                h=cfg.production.fos_hidden_neurons.(method);
+                R=fit_task1_case(D.fos_X,D.fos_y,method,h,split,cfg, ...
+                    cfg.seed+9000+fosCaseNo);
+                save(out,'R','-v7.3');
+            end
+            t=R.test_metrics;
+            fosRows(end+1,:)={method,ns,numel(split.development), ...
+                numel(split.test),t.R2,t.RMSE,t.MAE,t.a10}; %#ok<AGROW>
+        end
+    end
+    fosSummary=cell2table(fosRows,'VariableNames', ...
+        {'method','sample_size','n_train','n_test','R2_test', ...
+         'RMSE_test','MAE_test','a10_test'});
+    writetable(fosSummary,fullfile(cfg.results_dir,'task1_fos_model_metrics.csv'));
+end
 end

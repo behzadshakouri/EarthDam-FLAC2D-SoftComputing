@@ -3,7 +3,6 @@ function root = setup_task1()
 root = fileparts(mfilename('fullpath'));
 addpath(fullfile(root,'config'));
 addpath(genpath(fullfile(root,'src')));
-addpath(fullfile(root,'scripts'));
 addpath(fullfile(root,'tests'));
 ypeaRoot = fullfile(root,'third_party','ypea','src');
 igwoRoot = fullfile(root,'third_party','igwo');

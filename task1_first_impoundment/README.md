@@ -1,6 +1,6 @@
 # Task 1: first-impoundment response and factor-of-safety surrogates
 
-This package reproduces the soft-computing workflow reported for the first
+This package provides a paper-derived reproducibility workflow for the first
 impoundment analysis of Maku earth dam. It follows the repository conventions
 used by `task2_seismic_response` while retaining Task 1's distinct static
 response, sample-size, and factor-of-safety experiments.
@@ -25,6 +25,12 @@ response, sample-size, and factor-of-safety experiments.
 3. Run `check_task1_dependencies`.
 4. Run `run_task1_smoke_test` before a production experiment.
 5. Run `run_task1_production` after confirming the configuration.
+
+The canonical workflow records fixed seeds and fits scaling on development
+data only. These controls improve reproducibility but differ from the original
+historical scripts, which used unrecorded random permutations and normalized
+before splitting. Published Tables 7 and 8 are retained as comparison targets;
+canonical rerun results should not be assumed numerically identical.
 
 Large numerical datasets, generated results, FLAC2D case-study files, FISH
 files, and machine-specific paths are not distributed in the canonical
