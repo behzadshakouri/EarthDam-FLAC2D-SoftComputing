@@ -2,7 +2,7 @@
 
 ## Current release
 
-- Maintain the complete Task 1 first-impoundment reproducibility workflow and verified publication record.
+- Complete MATLAB execution and published-value parity validation for the Task 1 paper-derived workflow while maintaining its verified publication record.
 - Publish the complete Task 2 seismic-response reproducibility workflow.
 - Keep the FLAC2D runner in its independent general-purpose repository.
 
