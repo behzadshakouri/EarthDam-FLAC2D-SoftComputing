@@ -64,6 +64,34 @@ The current complete implementation is under
 
 Start with [`task2_seismic_response/README.md`](task2_seismic_response/README.md).
 
+## Citation
+
+If you use the paper-specific workflows or reproducibility materials in this
+repository, please cite this software repository and the relevant publication.
+Machine-readable metadata are provided in [`CITATION.cff`](CITATION.cff).
+
+- Shakouri, B., Mohammadi, M., Safari, M. J. S., & Hariri-Ardebili, M. A.
+  (2023). A collaborative numerical simulation-soft computing approach for
+  earth dams first impoundment modeling. *Computers and Geotechnics, 164*,
+  105814. https://doi.org/10.1016/j.compgeo.2023.105814
+- Shakouri, B., Mohammadi, M., Safari, M. J. S., & Hariri-Ardebili, M. A.
+  (2022). First Impoundment Response Analysis of an Earth Dam using Coupled
+  Numerical-Soft Computing technique. *IWA World Water Congress & Exhibition
+  2022*.
+- Shakouri, B., Mohammadi, M., & Safari, M. J. S. (2024). Sensitivity analysis
+  for uncertainty quantification in earth dams modeling (Case study: Maku
+  dam). *Water and Irrigation Management, 14*(1), 75–90.
+  https://doi.org/10.22059/jwim.2023.360452.1084
+
+### Related automation software
+
+For the reusable MATLAB–FLAC2D execution and archiving framework used alongside
+these paper-specific workflows, see and cite:
+
+- Shakouri, B. (2026). *Dam_Model_FLAC2D_Runner* (Version 0.1.0) [Computer
+  software]. GitHub.
+  https://github.com/behzadshakouri/Dam_Model_FLAC2D_Runner
+
 ## Releases
 
 Each paper-specific reproducibility snapshot should receive its own tag:

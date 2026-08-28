@@ -9,6 +9,7 @@ version: 1.0.0
 date-released: 2026-08-12
 license: MIT
 repository-code: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing"
+url: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing"
 keywords:
   - earth dam
   - FLAC2D
@@ -65,3 +66,13 @@ references:
     start: 75
     end: 90
     doi: "10.22059/jwim.2023.360452.1084"
+
+  - type: software
+    authors:
+      - family-names: Shakouri
+        given-names: Behzad
+    title: "Dam_Model_FLAC2D_Runner"
+    version: "0.1.0"
+    date-released: 2026-05-27
+    repository-code: "https://github.com/behzadshakouri/Dam_Model_FLAC2D_Runner"
+    url: "https://github.com/behzadshakouri/Dam_Model_FLAC2D_Runner"
