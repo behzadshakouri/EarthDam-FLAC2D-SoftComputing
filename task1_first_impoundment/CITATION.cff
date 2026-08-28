@@ -1,7 +1,10 @@
 cff-version: 1.2.0
 message: "Please cite the Task 1 publication most relevant to the materials you use."
 title: "Task 1: Earth-dam first-impoundment modeling and sensitivity analysis"
-type: dataset
+type: software
+version: 1.0.0
+date-released: 2026-08-28
+license: MIT
 authors:
   - family-names: Shakouri
     given-names: Behzad
