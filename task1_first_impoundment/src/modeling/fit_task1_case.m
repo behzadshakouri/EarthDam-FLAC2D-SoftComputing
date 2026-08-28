@@ -7,7 +7,7 @@ yd=y(split.development); yt=y(split.test);
 Xtn=apply_mapminmax_scaler(Xt,xs);
 [ydn,ys]=fit_mapminmax_scaler(yd);
 opt.hidden_neurons=hidden_neurons;
-opt.activation='sigmoid'; opt.ridge=cfg.production.ridge;
+opt.activation=cfg.activation; opt.ridge=cfg.production.ridge;
 if method=="ELM"
     model=train_elm(Xdn,ydn,opt,seed);
     history=[];
