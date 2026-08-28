@@ -14,11 +14,7 @@ https://doi.org/10.1016/j.compgeo.2023.105814
 - `published_table8_fos_metrics.csv` reproduces Table 8: FoS model metrics for
   the same selected sample size and the reported FoS distribution statistics.
 
-The values were transcribed at the precision printed in the article and
-cross-checked against the author's historical `results5.mat` and
-`FoS_results5.mat` aggregates. Those MAT workspaces are not redistributed:
-they contain historical paths, plotting state, and results not independently
-tabulated in the publication.
+The values were transcribed at the precision printed in the article.
 
 These CSVs are publication reference targets, not outputs from a new canonical
 rerun. Raw FLAC2D data, trained checkpoints, detailed per-QoI metrics, and
