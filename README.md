@@ -15,7 +15,7 @@ evaluation, figures, and reproducibility records.
 
 | Task | Scope | Repository status |
 |---|---|---|
-| Task 1 | First-impoundment modeling and sensitivity analysis | Complete first-impoundment reproducibility package and published record |
+| Task 1 | First-impoundment modeling and sensitivity analysis | Paper-derived workflow and published reference results; validation pending |
 | Task 2 | Seismic-response simulation and ELM-based surrogates | Complete reproducibility package |
 | Tasks 3-4 | Future research extensions | Added only when publishable code or documentation is available |
 
@@ -40,9 +40,10 @@ The publication record for Task 1 is documented under
 [`task1_first_impoundment/`](task1_first_impoundment/). It includes the
 published Computers and Geotechnics article, the IWA World Water Congress &
 Exhibition 2022 conference paper, and the 2024 sensitivity-analysis article in
-Water and Irrigation Management. Task 1 now provides a canonical portable workflow, paper-specific configuration,
+Water and Irrigation Management. Task 1 now provides a portable paper-derived workflow, paper-specific configuration,
 data contracts, response and FoS modeling, tests, third-party dependencies, and
-all original author-supplied MATLAB scripts preserved for provenance. Raw FLAC2D
+all original author-supplied MATLAB scripts preserved for provenance. MATLAB
+execution and published-value parity validation remain release-checklist items. Raw FLAC2D
 data and machine-specific case-study files remain outside Git.
 
 ### Task 2: seismic response
