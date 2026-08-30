@@ -1,4 +1,5 @@
 **/data/*.mat
+**/*_structure.txt
 **/results/*
 !**/data/README.md
 !**/results/.gitkeep
