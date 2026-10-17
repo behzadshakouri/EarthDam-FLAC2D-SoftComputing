@@ -85,6 +85,12 @@ Machine-readable metadata are provided in [`CITATION.cff`](CITATION.cff).
   dam). *Water and Irrigation Management, 14*(1), 75–90.
   https://doi.org/10.22059/jwim.2023.360452.1084
 
+### Google Scholar records
+
+- [A collaborative numerical simulation-soft computing approach for earth dams first impoundment modeling](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0lTtuMoAAAAJ&citation_for_view=0lTtuMoAAAAJ:qxL8FJ1GzNcC)
+- [First Impoundment Response Analysis of an Earth Dam using Coupled Numerical-Soft Computing technique](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0lTtuMoAAAAJ&citation_for_view=0lTtuMoAAAAJ:_kc_bZDykSQC)
+- [Sensitivity analysis for uncertainty quantification in earth dams modeling (Case study: Maku dam)](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=0lTtuMoAAAAJ&citation_for_view=0lTtuMoAAAAJ:mVmsd5A6BfQC)
+
 ### Related automation software
 
 For the reusable MATLAB–FLAC2D execution and archiving framework used alongside
