@@ -7,7 +7,8 @@ preparation on 2026-11-10. Tag the immutable paper release after submission.
 - [x] Machine-specific paths excluded.
 - [x] Task 2 screening behavior and the sentinel-tail rule documented.
 - [x] Combined four-scale data contract and 17 predictors documented.
-- [x] Ten ridge-free point-wise FMRVR models designated as the final estimator.
+- [x] Ten direct multi-output FMRVR models, one per monitoring point,
+  designated as the final estimator.
 - [x] Record-level and scale-stratified leakage controls implemented.
 - [x] Nonnegative nondecreasing predictions implemented.
 - [x] Adapted Ha FMRVR solver provenance and BSD license retained.
@@ -23,7 +24,7 @@ preparation on 2026-11-10. Tag the immutable paper release after submission.
 - [x] Confirm final author, funding, acknowledgement, and AI-use statements in
   the manuscript package maintained outside Git.
 - [x] Convert the primary submission draft to the Infrastructures template.
-- [x] Run dependency check, synthetic self-test, and artifact verification in
+- [x] Run dependency check, synthetic self-test, and saved-result verification in
   the release MATLAB environment (passed 2026-11-10).
 - [x] Prepare the first repository commit after final author review.
 

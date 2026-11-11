@@ -1,8 +1,9 @@
 # Task 4: Scaled-Dam IAA Simulations
 
-This MATLAB package audits and screens the 450 scaled-dam IAA simulations and
+This MATLAB package prepares and screens 450 scaled-dam IAA simulations and
 combines them with the 300 Task 2 prototype simulations for scale-aware
-surrogate modeling. Raw databases and generated model files remain private.
+multi-output response prediction. Raw databases and generated model files
+remain private.
 
 ## Confirmed database
 
@@ -48,7 +49,8 @@ The history CSV retains raw-prefix diagnostics (`clean_length`,
 `screening_status`, and `is_usable`. The latter means at least two canonical
 samples survive screening, not a guarantee of physical validity. Preparation
 errors are recorded in `screening_message`. Detector settings are in
-`config/task4_config.m`; their suitability across dam scales needs validation.
+`config/task4_config.m`. The same documented settings are applied at every
+scale; transferring them across scales is identified as a study limitation.
 The preparation function returns the envelope and its admissibility mask;
 downstream modeling must use the mask.
 
@@ -59,12 +61,15 @@ downstream modeling must use the mask.
 20-s time grid, stores the response-specific admissibility masks, and keeps the
 70 outputs in point-major order (`P1R1` through `P10R7`). Its 17 predictors are
 14 material variables, water level, running PGA, and geometric scale in that
-order. Point-wise model fitting uses rows admissible for all seven local
-responses, so a failed point does not remove valid rows at other points.
+order. Model fitting at each monitoring point uses rows admissible for all
+seven local responses, so a failed point does not remove valid rows at other
+points.
 
-`analysis/run_task4_pointwise_fmrvr_pilot.m` is the validated development
-architecture: ten ridge-free FMRVR models jointly predict the seven responses
-at their respective response-extraction points. `src/modeling/predict_task4_pointwise_fmrvr.m`
+The final architecture uses ten FMRVR models, one for each monitoring point;
+each model predicts the seven local responses together. FMRVR is fitted
+directly without a separate ridge-regression backbone. The earlier development
+entry point is retained as `analysis/run_task4_pointwise_fmrvr_pilot.m`.
+`src/modeling/predict_task4_pointwise_fmrvr.m`
 runs all ten models in one call and returns all 70 responses. Comparator pilots
 use the same record split and response masks.
 
@@ -85,9 +90,10 @@ of the complete ten-model, 70-output predictor. Use
 `run_task4_validated_workflow("verify")` to check saved evidence.
 
 Ten repeated record-level, scale-stratified splits give mean R2 = 0.8842 +/-
-0.0042 for the final bounded point-wise FMRVR model. Mean nRMSE and nMAE are
-0.0556 and 0.0371, mean a10 is 0.4698, and about 57 of 67 nonconstant outputs exceed R2 = 0.8.
-The reviewed compact CSVs are in `reference_results/`. The manuscript does not
+0.0042 for the final constrained multi-output FMRVR system. Mean nRMSE and
+nMAE are 0.0556 and 0.0371, mean a10 is 0.4698, and about 57 of 67 nonconstant
+outputs exceed R2 = 0.8.
+The reviewed numerical results are in `reference_results/`. The manuscript does not
 claim superiority over ELM-IGWO, RF, or SVR because those methods have not been
 rerun with identical masks, partitions, preprocessing, and tuning budgets.
 Leave-one-scale-out evaluation is likewise reserved for a separate transfer

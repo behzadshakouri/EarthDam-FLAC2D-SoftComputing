@@ -1,4 +1,4 @@
-# Task 3 validated workflow
+# Task 3 validated prediction workflow
 
 `run_task3_validated_workflow.m` is the single entry point for the accepted
 paper analysis. It preserves the supplied raw MAT-file and the external paper
@@ -31,11 +31,13 @@ The full run performs these stages in order:
    splits. Every time sample from a record remains in the same partition.
 7. For every split, use three development-record folds to select the response
    transform independently for each response-extraction point. Fit ten
-   ridge-free FMRVR models, each jointly predicting the seven responses at one
-   point, and project held-out predictions onto the positive nondecreasing
-   envelope space.
-8. Run the matched technical-review audits: four predictor sets, point-wise
-   multi-output versus 70 independent single-output RVR fits, unconstrained
+   multi-output FMRVR models, one for each monitoring point. Each model jointly
+   predicts the seven local responses without a separate ridge-regression
+   stage. Project held-out predictions onto the positive nondecreasing envelope
+   space.
+8. Run the matched technical-review audits: four predictor sets, ten
+   monitoring-point multi-output models versus 70 independent single-output
+   RVR fits, unconstrained
    versus bounded/projected predictions, terminal-demand accuracy, motion
    ranking, and critical response-extraction-point identification.
 9. Retain the original scalar-demand FMRVR, matched comparators, modal analysis,
@@ -53,9 +55,9 @@ The full run performs these stages in order:
     48 sentinel-bearing simulations, monotonic predictions, and mean held-out
     R2 above 0.8.
 
-The primary estimator is the ten-split point-wise result. The original fixed
-105/45 split and the later ridge-plus-residual experiment are retained as
-development history and are not treated as independent final tests.
+The primary result comes from the ten-split multi-output system. The original
+fixed 105/45 split and the later ridge-plus-residual experiment are retained
+as development history and are not treated as independent final tests.
 
 ## Regenerating presentation artifacts
 

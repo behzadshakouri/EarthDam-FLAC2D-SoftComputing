@@ -15,7 +15,8 @@ preparation on 2026-11-10. Tag the immutable paper release after submission.
 - [x] Positive nondecreasing prediction constraint verified.
 - [x] Scalar-demand analysis retained and labeled as a benchmark.
 - [x] Compact nested-validation reference results selected.
-- [x] Ridge-free point-wise workflow designated as the sole final estimator.
+- [x] Direct multi-output FMRVR system (one model per monitoring point)
+  designated as the sole final estimator.
 - [x] Export and review exact assignments for all ten outer splits.
 - [x] Export Task 2-compatible `a10` and 5-warmup/100-run timing evidence.
 - [x] Manuscript claims mapped to code and CSV evidence.
@@ -32,7 +33,7 @@ preparation on 2026-11-10. Tag the immutable paper release after submission.
 - [x] Complete author review of the expanded manuscript package.
 - [x] Freeze the accepted ten-split evidence; any further performance tuning
   requires a separately identified external test set.
-- [x] Run dependency check, synthetic self-test, and artifact verification in
+- [x] Run dependency check, synthetic self-test, and saved-result verification in
   the release MATLAB environment (passed 2026-11-10).
 - [x] Prepare the first repository commit after final author review.
 

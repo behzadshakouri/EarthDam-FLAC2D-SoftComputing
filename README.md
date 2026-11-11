@@ -19,8 +19,8 @@ evaluation, figures, and reproducibility records.
 |---|---|---|
 | Task 1 | First-impoundment modeling and sensitivity analysis | Paper-derived workflow and published reference results; validation pending |
 | Task 2 | Seismic-response simulation and ELM-based surrogates | Complete reproducibility package |
-| Task 3 | Synthetic-ground-motion response prediction with FMRVR | Validated ridge-free point-wise workflow and compact evidence package |
-| Task 4 | Scaled-dam IAA simulations | Validated scale-aware point-wise FMRVR workflow and compact evidence package |
+| Task 3 | Synthetic-ground-motion response prediction with FMRVR | Complete reproducibility package for 150 unequal-duration ground motions |
+| Task 4 | Scaled-dam IAA simulations | Complete scale-aware package for the combined 750-simulation database |
 
 Task 3 and Task 4 packages are available locally for review and validation.
 See [`REPOSITORY_STATUS.md`](REPOSITORY_STATUS.md) for the latest structural
@@ -72,16 +72,17 @@ Start with [`task2_seismic_response/README.md`](task2_seismic_response/README.md
 ### Tasks 3 and 4
 
 [`task3_synthetic_ground_motions/`](task3_synthetic_ground_motions/README.md)
-contains the validated cumulative-envelope workflow for 150 synthetic ground
-motions, 33 predictors, and 70 response histories. Ten ridge-free point-wise
-FMRVR models reach mean held-out $R^2=0.8574$ over ten record-level outer
-splits; exact split assignments, metrics, timing, and compact evidence are
-exported by the canonical runner.
+contains the validated cumulative-envelope analysis for 150 synthetic ground
+motions, 33 predictors, and 70 response histories. It fits one multi-output
+FMRVR model at each of ten monitoring points; every model predicts the seven
+local response quantities together. Across ten record-level outer splits, the
+system reaches mean held-out $R^2=0.8574$. The package includes exact split
+assignments, performance metrics, timing results, and figure generators.
 
 [`task4_scaled_dam_iaa/`](task4_scaled_dam_iaa/README.md) combines 450 scaled
 simulations with the 300-record Task 2 database. The four-scale data set uses
-17 predictors and a ten-model point-wise FMRVR surrogate. Mean held-out
-$R^2=0.8842$ over ten scale-stratified tests is the current primary result.
+17 predictors and one multi-output FMRVR model at each monitoring point. Mean
+held-out $R^2=0.8842$ over ten scale-stratified tests is the primary result.
 Comparator results produced with superseded predictors are excluded from
 algorithm-ranking claims, and leave-one-scale-out testing is reserved for a
 future extrapolation study.

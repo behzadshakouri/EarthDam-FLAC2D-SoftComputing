@@ -1,8 +1,8 @@
 # Superseded Task 3 development-results audit (2026-09-20)
 
 This document records the earlier ridge-plus-residual experiment for
-traceability. It is not the final manuscript evidence. The accepted ridge-free
-point-wise result is documented in `MANUSCRIPT_ALIGNMENT.md` and
+traceability. It is not the final manuscript evidence. The final multi-output
+result is documented in `MANUSCRIPT_ALIGNMENT.md` and
 `MANUSCRIPT_EVIDENCE_MAP.md`.
 
 ## Approach accepted at the time

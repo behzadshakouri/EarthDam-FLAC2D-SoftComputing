@@ -8,7 +8,7 @@ histories, trained checkpoints, or large intermediate target files.
 Primary time-resolved evidence:
 
 - `compact_pointwise_fmrvr_summary.csv`: aggregate ten-split result for the
-  final ridge-free point-wise FMRVR workflow;
+  final multi-output FMRVR system;
 - `compact_pointwise_fmrvr_outer_metrics.csv`: one row per record-level outer
   split;
 - `compact_pointwise_fmrvr_inner_selections.csv`: inner-selected response
@@ -27,8 +27,9 @@ Primary time-resolved evidence:
 The validated database contains 15,000 rows (150 records times 100 normalized
 time samples), 33 predictors, and 70 positive, nondecreasing response-envelope
 outputs. Across ten deterministic 105/45 record-level splits, the final ten
-point-wise FMRVR models reach mean R2 = 0.8574 +/- 0.0135 and mean median
-R2 = 0.8896. On average, approximately 57 of the 67 nonconstant outputs exceed R2 = 0.8.
+monitoring-point FMRVR models reach mean R2 = 0.8574 +/- 0.0135 and mean median
+R2 = 0.8896. On average, approximately 57 of the 67 nonconstant outputs exceed
+R2 = 0.8.
 Mean a10 is 0.3648. The median of 100 measured predictions of all 70 outputs is
 0.07095 s for 45 records, or about 0.00158 s per record, after five warmup calls
 on the validation machine. Mean training time for the ten final point models is
@@ -80,8 +81,8 @@ Technical-review evidence:
 - `reviewer_predictor_ablation_summary.csv` and its split-level companion compare
   the full 33-predictor set with complete-record, time-varying, and stricter
   prefix-only alternatives;
-- `reviewer_multi_vs_single_summary.csv` documents the matched point-wise
-  FMRVR versus 70 independent single-output RVR comparison;
+- `reviewer_multi_vs_single_summary.csv` documents the matched ten-model
+  multi-output FMRVR versus 70 independent single-output RVR comparison;
 - `reviewer_projection_ablation_summary.csv` and
   `reviewer_projection_correction_fraction.csv` audit the physical projection;
 - `reviewer_terminal_metrics_by_family_summary.csv` and
@@ -99,9 +100,9 @@ development split it reached mean R2 = 0.0157; an additive record/dynamic
 kernel variant reached -1.8075. These rejected diagnostics are generated under
 the configured external analysis-results root and are intentionally excluded
 from manuscript evidence.
-The final Task 3 adaptation preserves the same ten point-wise, seven-output,
-ridge-free FMRVR structure while using robust inputs and a compact global basis
-suited to unseen ground motions.
+The final Task 3 adaptation preserves the same ten-model, seven-output-per-point
+FMRVR structure while using robust inputs and a compact global basis suited to
+unseen ground motions.
 
 The scalar peak-demand experiment gives mean $R^2=0.6743$ for the multiscale
 FMRVR model. On the same partitions, linear ridge with 16 predictors reaches

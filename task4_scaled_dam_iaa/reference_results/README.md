@@ -5,12 +5,12 @@ Raw databases, complete prediction arrays, and trained model MAT files remain
 ignored.
 
 The primary result is a ten-split, record-level, scale-stratified validation of
-ten ridge-free point-wise FMRVR models. Each model jointly predicts the seven
-response envelopes at one response-extraction point; one wrapper returns all 70 outputs.
+ten multi-output FMRVR models, one per monitoring point. Each model jointly
+predicts the seven local response envelopes; one wrapper returns all 70 outputs.
 
 Across the 67 nonconstant outputs, mean R2 is 0.8842 +/- 0.0042, mean median R2
-is 0.8846, mean nRMSE is 0.0556, mean nMAE is 0.0371, and mean a10 is 0.4698. On average, about 57
-outputs exceed R2 = 0.8 and 26 exceed 0.9.
+is 0.8846, mean nRMSE is 0.0556, mean nMAE is 0.0371, and mean a10 is 0.4698.
+On average, about 57 outputs exceed R2 = 0.8 and 26 exceed 0.9.
 
 Under the final Task 2-compatible timing protocol, the median of 100 measured
 all-70 calls is 1.198 s for 150 held-out records (0.00799 s per record) after
@@ -33,7 +33,7 @@ Files:
   model-size column is retained only for traceability;
 - `pointwise_fmrvr_split_assignments.csv`: exact development/test membership
   for all 750 records and ten outer splits;
-- `validated_workflow_verification.csv`: final artifact and consistency check.
+- `validated_workflow_verification.csv`: final saved-result consistency check.
 
 The `difficult_point_fmrvr_option_*.csv` files document a development-only
 rejected refinement. They must not be pooled with the outer-test evidence.

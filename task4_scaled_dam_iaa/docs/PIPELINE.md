@@ -15,9 +15,10 @@ Task 4 FMRVR analysis.
    17 predictors: 14 material properties, water level, running PGA, and scale.
 6. Run ten deterministic, scale-stratified 600/150 record-level outer splits.
    Every row from a record stays in one partition.
-7. At each response-extraction point, fit one ridge-free FMRVR model to the
-   seven locally admissible response envelopes. One wrapper evaluates all ten
-   point models and returns the 70 outputs.
+7. At each monitoring point, fit one multi-output FMRVR model to the seven
+   locally admissible response envelopes. These are direct FMRVR models without
+   a separate ridge-regression stage. One wrapper evaluates all ten models and
+   returns the 70 outputs.
 8. Project predictions onto the nonnegative nondecreasing envelope space.
 9. Export exact split assignments, per-output and scale-specific metrics,
    Task 2-compatible `a10`, and timing from five warmups plus 100 measured

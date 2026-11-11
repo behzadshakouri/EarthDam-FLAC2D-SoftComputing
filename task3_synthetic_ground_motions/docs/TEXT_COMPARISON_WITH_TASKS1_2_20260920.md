@@ -1,6 +1,6 @@
 # Historical Task 3 alignment with Tasks 1 and 2
 
-This note predates the final ridge-free point-wise workflow. Use
+This note predates the final multi-output response-evolution workflow. Use
 `MANUSCRIPT_ALIGNMENT.md` for current manuscript claims and values.
 
 This note records the final manuscript and repository decisions after using the

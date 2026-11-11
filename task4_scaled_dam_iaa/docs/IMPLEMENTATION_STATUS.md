@@ -16,8 +16,8 @@ Implemented:
 - a combined 750-record, four-scale data set with 17 predictors (14 material
   variables, water level, running PGA, and scale), 70 positive
   nondecreasing response envelopes, and response-specific admissibility masks;
-- ten point-wise FMRVR models, each jointly predicting the seven response
-  quantities at one response-extraction point;
+- ten multi-output FMRVR models, one per monitoring point, each jointly
+  predicting the seven local response quantities;
 - matched fixed-split development checks with random forest, approximate
   Gaussian SVR, and plain ELM;
 - a single prediction wrapper that executes all ten FMRVR point models and
@@ -29,9 +29,10 @@ Implemented:
 
 Validated production finding:
 
-- Across ten record-level, scale-stratified outer splits, point-wise FMRVR gives
-  mean R2 = 0.8842 +/- 0.0042 across the 67 nonconstant outputs. Mean median R2
-  is 0.8846; on average, about 57 outputs exceed R2 = 0.8 and 26 exceed 0.9.
+- Across ten record-level, scale-stratified outer splits, the multi-output
+  FMRVR system gives mean R2 = 0.8842 +/- 0.0042 across the 67 nonconstant
+  outputs. Mean median R2 is 0.8846; on average, about 57 outputs exceed R2 =
+  0.8 and 26 exceed 0.9.
 - Training the ten point models takes 51.5 s on average. After five warmups,
   the median of 100 measured full all-70 predictions is 1.198 s for 150
   held-out records, or 0.00799 s per record.

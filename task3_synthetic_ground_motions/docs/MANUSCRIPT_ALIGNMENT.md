@@ -12,8 +12,8 @@ implementation on the following:
 - positive nondecreasing envelope definitions for displacement, stress,
   pore-water pressure, and strain;
 - 16 complete-record plus 17 time-varying predictors;
-- ten ridge-free point-wise FMRVR models, each jointly predicting seven
-  responses;
+- ten multi-output FMRVR models, one per monitoring point, each jointly
+  predicting seven local responses without a separate ridge-regression stage;
 - response transform selected independently for each point in three
   development-record folds;
 - final nonnegative cumulative-maximum projection;

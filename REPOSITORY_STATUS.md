@@ -25,34 +25,38 @@ Last structural and execution audit: 2026-11-10
 - Before tagging a release, rerun the documented dependency, synthetic, and
   private-data validation commands in the target MATLAB environment.
 
-## Task 3 validated workflow
+## Task 3 validated prediction package
 
 - The accepted analysis uses 150 unequal-duration synthetic motions, 100
   samples per record, 33 predictors, and 70 positive nondecreasing response
   envelopes.
-- Ten ridge-free point-wise FMRVR models jointly predict the seven responses
-  at each extraction point. Across ten deterministic 105/45 record splits,
+- One multi-output FMRVR model is fitted at each of the ten monitoring points;
+  each model predicts the seven local response histories together. Across ten
+  deterministic 105/45 record splits,
   mean held-out R2 is 0.8574 (SD 0.0135), nRMSE is 0.0450, and nMAE is 0.0257.
 - Exact split assignments, Task 2-compatible a10, 5-warmup/100-run prediction
-  timing, compact CSV evidence, and deterministic figure generators are part
-  of the canonical workflow.
+  timing, reviewed CSV results, and deterministic figure generators are
+  included.
 - The earlier ridge-plus-residual result is retained only as development
-  history. The accepted runner no longer regenerates its presentation files.
+  history and is excluded from final figure generation.
 
-## Task 4 validated workflow
+## Task 4 validated prediction package
 
 - The combined data set contains 750 records at scale factors 0.25, 0.50,
   1.00, and 1.50, with 17 predictors and 70 response envelopes.
-- Ten ridge-free point-wise FMRVR models currently reach mean held-out R2 of
-  0.8842 (SD 0.0042) over ten scale-stratified 600/150 record splits.
-- A canonical full/artifact/verify runner, exact split export, Task 2-compatible
-  metrics and timing, figure generators, and strict artifact checks are present.
+- One multi-output FMRVR model is fitted at each of the ten monitoring points;
+  the combined system reaches mean held-out R2 of 0.8842 (SD 0.0042) over ten
+  scale-stratified 600/150 record splits.
+- The main entry point supports full analysis, figure and table regeneration,
+  and saved-result verification. Exact split exports, Task 2-compatible
+  metrics and timing, figure generators, and strict consistency checks are
+  included.
 - Comparator pilots produced with superseded predictors are excluded from
   algorithm-ranking claims. Leave-one-scale-out testing remains useful future
   work for extrapolation beyond the represented scale factors, but it is not
   part of the present interpolation claim.
-- On 2026-11-10, the dependency check, synthetic self-test, and canonical
-  artifact verification all passed in MATLAB. Verification reproduced ten
+- On 2026-11-10, the dependency check, synthetic self-test, and saved-result
+  verification all passed in MATLAB. Verification reproduced ten
   splits, 67 nonconstant outputs, and mean held-out R2 of 0.8842.
 
 The corresponding Task 3 checks also passed on 2026-11-10 and reproduced ten
@@ -104,7 +108,7 @@ early statements that modeling or predictor construction was pending.
 - Task 3 production completed after fold-local scaling, output-subspace
   preprocessing, and a zero-basis solver fix. The saved model reproduces all
   exported test predictions. The provisional September result was later
-  superseded by the accepted point-wise workflow documented above. See each
+  superseded by the final multi-output system documented above. See each
   task's `docs/VALIDATION_RUN_20260919.md` for the historical execution record.
 
 ## Previously recorded repository-wide audit checks
@@ -117,5 +121,5 @@ early statements that modeling or predictor construction was pending.
 - Task-specific code and historical scripts remain separated.
 - General FLAC2D batch execution remains in `Dam_Model_FLAC2D_Runner`.
 
-The 2026-11-10 audit includes execution of both validated artifact verifiers
+The 2026-11-10 audit includes verification of both final result sets
 with the configured private datasets. Raw data remain outside Git.

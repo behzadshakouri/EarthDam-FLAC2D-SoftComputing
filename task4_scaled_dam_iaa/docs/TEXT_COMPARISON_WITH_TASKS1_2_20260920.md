@@ -1,7 +1,7 @@
 # Task 4 text comparison with Tasks 1 and 2
 
 > Historical audit (2026-09-20). This document describes the initial imported
-> package before the final 17-predictor, 750-record point-wise FMRVR workflow
+> package before the final 17-predictor, 750-record multi-output FMRVR workflow
 > was implemented. See `IMPLEMENTATION_STATUS.md` and `RELEASE_CHECKLIST.md`
 > for the current validated status.
 
