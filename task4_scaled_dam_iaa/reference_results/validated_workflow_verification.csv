@@ -1,0 +1,2 @@
+required_artifacts,outer_splits,nonconstant_outputs,predictors,mean_R2,mean_nRMSE,mean_a10
+21,10,67,17,0.884235891623952,0.055573728158932,0.469793844204088

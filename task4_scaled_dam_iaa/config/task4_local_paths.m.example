@@ -1,0 +1,6 @@
+function paths = task4_local_paths(paths)
+% Copy to task4_local_paths.m and edit only the ignored local copy.
+paths.task4_data_file = 'E:\path\to\Task4Data.mat';
+paths.results_root = 'E:\path\to\Task4_computational_outputs\results';
+paths.output_root = 'E:\path\to\Task4_computational_outputs\output';
+end

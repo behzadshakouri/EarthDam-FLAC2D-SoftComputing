@@ -1,0 +1,16 @@
+function report = check_task4_dependencies()
+%CHECK_TASK4_DEPENDENCIES Check code and private-data availability.
+root=setup_task4(); cfg=task4_config(root);
+required={'build_task4_metadata','validate_task4_structure', ...
+    'clean_task4_history','audit_task4_responses', ...
+    'build_task4_scale_aware_dataset','fit_task4_pointwise_fmrvr', ...
+    'predict_task4_pointwise_fmrvr','run_task4_pointwise_fmrvr_validation', ...
+    'generate_task4_pointwise_fmrvr_figures'};
+available=cellfun(@(name) exist(name,'file')==2,required);
+report=table(required(:),available(:),'VariableNames',{'component','available'});
+disp(report);
+fprintf('Private Task4Data.mat found: %d\n',exist(cfg.raw.task4_data_file,'file')==2);
+assert(all(available),'One or more Task 4 code components are missing.');
+assert(isfile(fullfile(root,'third_party','fmrvr_ha','license.txt')), ...
+    'Task4:MissingThirdPartyLicense','The adapted FMRVR solver license is missing.');
+end

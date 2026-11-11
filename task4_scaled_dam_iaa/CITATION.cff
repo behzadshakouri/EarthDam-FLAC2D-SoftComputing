@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Cite the associated scale-aware Task 2--Task 4 manuscript when available."
+title: "Task 4 reproducibility software: Scale-aware multi-output learning of earth-dam seismic response evolution under intensifying artificial acceleration"
+type: software
+authors:
+  - family-names: Shakouri
+    given-names: Behzad
+repository-code: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing"
+license: MIT
+version: 1.0.0
+date-released: 2026-11-10

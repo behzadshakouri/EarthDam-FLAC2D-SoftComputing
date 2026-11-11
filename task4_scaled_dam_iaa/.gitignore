@@ -1,0 +1,7 @@
+data/*.mat
+results/*
+!results/.gitkeep
+config/task4_local_paths.m
+*_structure.txt
+*.asv
+*.m~
