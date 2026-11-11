@@ -17,9 +17,10 @@ evaluation, figures, and reproducibility records.
 |---|---|---|
 | Task 1 | First-impoundment modeling and sensitivity analysis | Paper-derived workflow and published reference results; validation pending |
 | Task 2 | Seismic-response simulation and ELM-based surrogates | Complete reproducibility package |
-| Tasks 3-4 | Future research extensions | Added only when publishable code or documentation is available |
+| Task 3 | Synthetic-ground-motion response prediction with FMRVR | Validated ridge-free point-wise workflow and compact evidence package |
+| Task 4 | Scaled-dam IAA simulations | Validated scale-aware point-wise FMRVR workflow and compact evidence package |
 
-The repository intentionally contains no empty Task 3 or Task 4 directories.
+Task 3 and Task 4 packages are available locally for review and validation.
 See [`REPOSITORY_STATUS.md`](REPOSITORY_STATUS.md) for the latest structural
 audit and remaining environment-specific validation steps.
 
@@ -34,7 +35,9 @@ EarthDam-FLAC2D-SoftComputing/
 ├── REPOSITORY_STATUS.md
 ├── common/
 ├── task1_first_impoundment/
-└── task2_seismic_response/
+├── task2_seismic_response/
+├── task3_synthetic_ground_motions/
+└── task4_scaled_dam_iaa/
 ```
 
 ### Task 1: first impoundment
@@ -63,6 +66,23 @@ The current complete implementation is under
   licensing information.
 
 Start with [`task2_seismic_response/README.md`](task2_seismic_response/README.md).
+
+### Tasks 3 and 4
+
+[`task3_synthetic_ground_motions/`](task3_synthetic_ground_motions/README.md)
+contains the validated cumulative-envelope workflow for 150 synthetic ground
+motions, 33 predictors, and 70 response histories. Ten ridge-free point-wise
+FMRVR models reach mean held-out $R^2=0.8574$ over ten record-level outer
+splits; exact split assignments, metrics, timing, and compact evidence are
+exported by the canonical runner.
+
+[`task4_scaled_dam_iaa/`](task4_scaled_dam_iaa/README.md) combines 450 scaled
+simulations with the 300-record Task 2 database. The four-scale data set uses
+17 predictors and a ten-model point-wise FMRVR surrogate. Mean held-out
+$R^2=0.8842$ over ten scale-stratified tests is the current primary result.
+Comparator results produced with superseded predictors are excluded from
+algorithm-ranking claims, and leave-one-scale-out testing is reserved for a
+future extrapolation study.
 
 ## Citation
 
@@ -99,6 +119,8 @@ Each paper-specific reproducibility snapshot should receive its own tag:
 ```text
 task1-v1.0.0
 task2-v1.0.0
+task3-v1.0.0
+task4-v1.0.0
 ```
 
 Future development may continue on the default branch without changing an

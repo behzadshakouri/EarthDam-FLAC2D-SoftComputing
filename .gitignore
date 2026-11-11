@@ -1,8 +1,16 @@
 **/data/*.mat
 **/*_structure.txt
 **/results/*
+**/output/*
 !**/data/README.md
 !**/results/.gitkeep
+!**/output/.gitkeep
 *.asv
 *.m~
 .DS_Store
+
+# Original local import bundles and execution logs
+/Task3_FMRVR_precommit_20260830.zip
+/Task4_scaled_dam_IAA_preliminary_20260830.zip
+**/validation.log
+/tmp/
