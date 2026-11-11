@@ -72,8 +72,11 @@ neuron_counts = [cfg.production.elm.hidden_neurons, ...
 assert(all(isfinite(neuron_counts) & neuron_counts >= 1 & ...
     neuron_counts == round(neuron_counts)), ...
     'Hidden-neuron counts must be positive integers.');
-% Failure detector: settings carried forward from the previously validated
-% detect_failure_per_sim_col17_v4_2 / v5 workflow.
+% Failure detector algorithm: detect_failure_per_sim_col17_v4_2.
+% The historical "v5" label refers to the selected parameter/masking
+% workflow; build_row_valid_from_step_fail_v5 excludes onset and later rows.
+% The later FAILURE_TIMES_v6 name is an aggregate container version, not a
+% replacement detector.
 cfg.detector.version = 'legacy_v4_2_adapter';
 cfg.detector.smoothing_window = 11;
 cfg.detector.baseline_s = [2 2 1 1 1 2 2];
