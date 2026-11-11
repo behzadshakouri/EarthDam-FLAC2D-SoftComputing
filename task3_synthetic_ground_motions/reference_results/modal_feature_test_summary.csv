@@ -1,0 +1,2 @@
+selected_feature_set,feature_count,lambda,rank,test_mean_R2,test_median_R2,test_mean_nRMSE,outputs_R2_ge_08,outputs_R2_ge_09
+spectral16,16,10,5,0.718735349275774,0.779435613649288,0.121390218147563,25,7

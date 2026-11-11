@@ -1,0 +1,4 @@
+function cfg = task3_user_settings(cfg)
+% Copy to task3_user_settings.m for intentional local overrides.
+% cfg.fmrvr.kernel_width_factors = [0.5 1 2];
+end

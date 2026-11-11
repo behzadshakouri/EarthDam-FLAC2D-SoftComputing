@@ -1,0 +1,3 @@
+method,GroupCount,mean_mean_R2,mean_median_R2,mean_mean_nRMSE,mean_mean_nMAE,mean_training_s,mean_prediction_s,mean_relevance_bases
+independent_singleoutput_RVR,10,0.857449975640609,0.889929288183086,0.044969030143296,0.025749064700389,3.47956769,0.47951393,1885.8
+pointwise_multioutput_FMRVR,10,0.857390028889873,0.889612399727768,0.0449799961699311,0.0257401523503637,0.85642187,0.07535251,330

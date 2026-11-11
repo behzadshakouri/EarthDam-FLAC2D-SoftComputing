@@ -1,0 +1,7 @@
+function paths = task3_local_paths(paths)
+% Copy to task3_local_paths.m and edit only the local copy.
+paths.task3_data_file = 'E:\path\to\Task3Data.mat';
+paths.results_root = 'E:\path\to\Task3_computational_outputs\results';
+paths.analysis_results_root = 'E:\path\to\Task3_computational_outputs\analysis_results';
+paths.output_root = 'E:\path\to\Task3_computational_outputs\output';
+end

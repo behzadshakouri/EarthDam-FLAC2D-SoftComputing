@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use the Task 3 workflow, cite the associated manuscript and Ha and Zhang (2019)."
+title: "Task 3 reproducibility software: Multi-output machine learning for scenario-based seismic response prediction under synthetic ground motions"
+type: software
+authors:
+  - family-names: Shakouri
+    given-names: Behzad
+repository-code: "https://github.com/behzadshakouri/EarthDam-FLAC2D-SoftComputing"
+license: MIT
+version: 1.0.0
+date-released: 2026-11-10
+references:
+  - type: article
+    title: "Fast multi-output relevance vector regression"
+    authors:
+      - family-names: Ha
+        given-names: Youngmin
+      - family-names: Zhang
+        given-names: Hai
+    journal: "Economic Modelling"
+    volume: 81
+    start: 217
+    end: 230
+    year: 2019
+    doi: "10.1016/j.econmod.2019.04.007"

@@ -1,0 +1,26 @@
+function export_task3_results(observed,predicted,testIds,metrics,dictionary,selection,model,trainS,inferS,cfg)
+%EXPORT_TASK3_RESULTS Write compact manuscript/reproducibility CSV files.
+labels = {dictionary.label};
+predictionTable = table(testIds,'VariableNames',{'realization_id'});
+for j = 1:numel(labels)
+    predictionTable.([labels{j} '_observed']) = observed(:,j);
+    predictionTable.([labels{j} '_predicted']) = predicted(:,j);
+end
+writetable(predictionTable,fullfile(cfg.results_dir,'task3_test_predictions.csv'));
+
+metricTable = table((1:numel(metrics))',[dictionary.point]',[dictionary.response]', ...
+    labels',{dictionary.name}',{dictionary.unit}',[metrics.n]',[metrics.R2]', ...
+    [metrics.RMSE]',[metrics.nRMSE]',[metrics.MAE]',[metrics.nMAE]', ...
+    [metrics.a10]',[metrics.constant]','VariableNames',{'output_column','point', ...
+    'response','label','response_name','unit','n','R2','RMSE','nRMSE','MAE','nMAE','a10','constant'});
+writetable(metricTable,fullfile(cfg.results_dir,'task3_output_metrics.csv'));
+
+widthTable = table(selection.width_factors(:),selection.widths(:),selection.mean_scores(:), ...
+    'VariableNames',{'kernel_width_factor','final_development_kernel_width','mean_cv_nRMSE'});
+writetable(widthTable,fullfile(cfg.results_dir,'task3_kernel_width_selection.csv'));
+summary = table(selection.selected_width,numel(model.used),trainS,inferS, ...
+    model.output_rank,model.iterations,model.iterations>=cfg.fmrvr.max_iterations, ...
+    'VariableNames',{'selected_kernel_width','relevance_basis_count', ...
+    'training_seconds','test_inference_seconds','output_rank','iterations','iteration_cap_reached'});
+writetable(summary,fullfile(cfg.results_dir,'task3_run_summary.csv'));
+end

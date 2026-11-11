@@ -1,0 +1,4 @@
+threshold_multiplier,sentinel_records,screened_records,median_lead_time_s,runaway_markers,filled_tail_samples,stored_multiplier
+5,48,48,1.566,3216,16409230,5
+10,48,48,1.5385,3216,16409230,10
+20,48,48,1.5065,3216,16409230,20

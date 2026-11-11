@@ -1,0 +1,2 @@
+baseline_mean_R2,baseline_sd_R2,structured_mean_R2,structured_sd_R2,structured_minimum_R2,structured_maximum_R2,mean_delta_R2,structured_wins,structured_mean_nRMSE,structured_mean_nMAE,structured_mean_a10,mean_instability_accuracy,mean_severity_RMSE
+0.674282331426645,0.0365369540634892,0.674300223451968,0.0346347144220662,0.633673184874055,0.741882315700956,1.78920253225634e-05,5,0.127118780484776,0.0799863747412263,0.311774461028192,0.902222222222222,0.147236454114728

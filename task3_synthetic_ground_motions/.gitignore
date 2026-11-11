@@ -1,0 +1,13 @@
+data/*.mat
+results/*
+!results/.gitkeep
+analysis/results/*
+analysis/outputs/*
+output/figures/*
+output/tables/*
+splits/*.csv
+!splits/.gitkeep
+config/task3_local_paths.m
+config/task3_user_settings.m
+*.asv
+*.m~
