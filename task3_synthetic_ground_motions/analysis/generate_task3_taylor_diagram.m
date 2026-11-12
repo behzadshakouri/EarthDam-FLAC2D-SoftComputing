@@ -19,8 +19,7 @@ for response=1:7
         'DisplayName',symbols{response});
 end
 xlabel(ax,'Normalized standard deviation \times correlation');ylabel(ax,'Normalized standard deviation component');
-title(ax,'Normalized Taylor diagram: first held-out outer split');
-legend(ax,'Location','eastoutside','Interpreter','tex');xlim(ax,[0 1.6]);ylim(ax,[0 1.15]);grid(ax,'on');box(ax,'on');
+legend(ax,'Location','southoutside','Orientation','horizontal','Interpreter','tex','NumColumns',4);xlim(ax,[0 1.6]);ylim(ax,[0 1.15]);grid(ax,'on');box(ax,'on');
 set(ax,'FontName','Arial','FontSize',10,'TickDir','out');
 path=fullfile(outputDir,'task3_taylor_diagram.png');exportgraphics(f,path,'Resolution',300);
 exportgraphics(f,fullfile(outputDir,'task3_taylor_diagram.pdf'),'ContentType','vector');close(f);

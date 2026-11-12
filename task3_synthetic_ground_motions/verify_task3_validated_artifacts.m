@@ -1,5 +1,5 @@
 function report = verify_task3_validated_artifacts()
-%VERIFY_TASK3_VALIDATED_ARTIFACTS Check the final ridge-free paper evidence.
+%VERIFY_TASK3_VALIDATED_ARTIFACTS Check the final manuscript evidence.
 root = setup_task3();
 analysisDir = task3_analysis_results_root(root);
 resultsDir = fullfile(task3_results_root(root),'compact_pointwise_fmrvr');

@@ -2,7 +2,7 @@ function report = run_task3_validated_workflow(mode)
 %RUN_TASK3_VALIDATED_WORKFLOW Reproduce the accepted Task 3 paper workflow.
 %   REPORT = RUN_TASK3_VALIDATED_WORKFLOW() starts from the private Task3
 %   MAT-file, rebuilds the prepared data and screened response targets, runs
-%   the scalar benchmark and final ridge-free point-wise validation, and
+%   the scalar benchmark and final point-wise FMRVR validation, and
 %   then regenerates the paper figures and tables.
 %
 %   RUN_TASK3_VALIDATED_WORKFLOW("artifacts") regenerates paper-facing

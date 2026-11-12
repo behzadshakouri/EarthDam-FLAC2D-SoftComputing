@@ -41,7 +41,7 @@ bar(family.mean_R2,'FaceColor',blue);hold on;
 errorbar(1:7,family.mean_R2,familyStd,'k.','LineWidth',1.1,'CapSize',8);
 yline(.8,':');grid on;ylim([.76 .92]);
 set(gca,'XTick',1:7,'XTickLabel',symbols,'TickLabelInterpreter','tex','FontSize',10);
-ylabel('Mean held-out R^2');title('Predictive performance by response family');
+ylabel('Mean held-out R^2');
 export_pair(f,outputDir,'time_resolved_family_performance');close(f);
 
 map=nan(7,10);
@@ -53,7 +53,7 @@ f=figure('Visible','off','Color','w','Position',[100 100 1050 450]);
 h=imagesc(map);set(h,'AlphaData',~isnan(map));set(gca,'Color',[.88 .88 .88]);
 finiteMap=map(isfinite(map));caxis([floor(20*min(finiteMap))/20 ceil(20*max(finiteMap))/20]);colorbar;
 set(gca,'XTick',1:10,'YTick',1:7,'YTickLabel',symbols,'TickLabelInterpreter','tex');
-xlabel('Response-extraction point');ylabel('Response');title('Mean held-out R^2 over ten record-level splits');
+xlabel('Response-extraction point');ylabel('Response');
 for r=1:7,for p=1:10,if isfinite(map(r,p)),text(p,r,sprintf('%.2f',map(r,p)), ...
             'HorizontalAlignment','center','FontSize',8,'Color',map(r,p)<.72*[1 1 1]);end,end,end
 export_pair(f,outputDir,'time_resolved_output_map');close(f);
@@ -76,7 +76,7 @@ for response=1:7
         h1=plot(ax,s.time_s(take),s.observed(take,output),'k-','LineWidth',1.35);hold(ax,'on');
         h2=plot(ax,s.time_s(take),s.prediction(take,output),'-','Color',orange,'LineWidth',1.35);grid(ax,'on');
         if isempty(firstAx),firstAx=ax;referenceHandle=h1;predictionHandle=h2;end
-        if response==1,title(ax,sprintf('Record %d',chosen(column)),'FontSize',11,'FontWeight','bold');end
+        if response==1,title(ax,sprintf('(%c)','a'+column-1),'FontSize',11,'FontWeight','bold');end
         if column==1
             ylabel(ax,sprintf('%s (%s)',symbols{response},units{response}), ...
                 'Interpreter','tex','FontSize',10.5);
@@ -86,8 +86,6 @@ for response=1:7
             'GridAlpha',.14,'MinorGridAlpha',.08);
     end
 end
-legend(firstAx,[referenceHandle predictionHandle],{'FLAC2D reference','FMRVR prediction'}, ...
-    'Orientation','vertical','Location','northwest','Box','off','FontSize',8.5);
 export_pair(f,outputDir,'time_resolved_representative_histories');close(f);
 end
 

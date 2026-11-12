@@ -15,7 +15,7 @@ b=bar(categorical(labels,labels),values,'grouped');
 b(1).FaceColor=[0 .447 .741];b(2).FaceColor=[.85 .325 .098];grid on;
 xlabel('Runaway-threshold multiplier');
 ylabel('Relative change from 5x targets');
-legend('95th percentile','Maximum','Location','northwest','Box','off');
+legend('95th percentile','Maximum','Location','southoutside','Orientation','horizontal','Box','off');
 set(gca,'FontName','Arial','FontSize',10.5,'TickDir','out','LineWidth',.8, ...
     'GridAlpha',.16);ylim([0 1.08*max(values,[],'all')]);
 for series=1:2

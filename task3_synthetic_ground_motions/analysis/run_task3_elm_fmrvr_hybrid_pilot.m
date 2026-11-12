@@ -1,5 +1,5 @@
 function report=run_task3_elm_fmrvr_hybrid_pilot(hiddenNeurons)
-%RUN_TASK3_ELM_FMRVR_HYBRID_PILOT Task 2-style ELM plus ridge-free FMRVR.
+%RUN_TASK3_ELM_FMRVR_HYBRID_PILOT Task 2-style ELM plus point-wise FMRVR.
 if nargin<1,hiddenNeurons=100;end
 analysisDir=fileparts(mfilename('fullpath'));root=fileparts(analysisDir);addpath(root);setup_task3;
 cfg=task3_config(root);prepared=load(fullfile(task3_results_root(root),'final_production','task3_prepared_dataset.mat'),'dataset','qc');

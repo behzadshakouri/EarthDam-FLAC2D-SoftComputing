@@ -1,6 +1,6 @@
 function report=run_task3_reviewer_ablation(repeats)
 %RUN_TASK3_REVIEWER_ABLATION Evidence requested during coauthor review.
-% This analysis keeps the final ridge-free point-wise FMRVR formulation and
+% This analysis keeps the final point-wise FMRVR formulation and
 % the frozen outer partitions. It does not revive earlier ridge/residual
 % models. It evaluates: (1) predictor groups, (2) matched multi-output versus
 % independent single-output RVR, (3) physical post-processing, (4) terminal

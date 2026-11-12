@@ -118,10 +118,10 @@ period=1./freq;[period,order]=sort(period,'ascend');
 peakPeriods=1./freq(peaks);peakScores=consensus(peaks);
 f=figure('Visible','off','Color','w','Position',[100 100 980 650]);subplot(2,1,1);hold on;
 for r=1:7,plot(period,family(order,r),'LineWidth',1.2,'DisplayName',names(r));end
-xlim([period(1) period(end)]);set(gca,'XScale','log','XDir','normal');grid on;xlabel('Period (s)');ylabel('Detrended log transfer');title('Sentinel-free development simulations');legend('Location','eastoutside');
+xlim([period(1) period(end)]);set(gca,'XScale','log','XDir','normal');grid on;xlabel('Period (s)');ylabel('Detrended log transfer');title('(a)');legend('Location','southoutside','Orientation','horizontal');
 subplot(2,1,2);plot(period,consensus(order),'k','LineWidth',1.8);hold on;scatter(peakPeriods,peakScores,65,'filled');
 for k=1:numel(peaks),text(1/freq(peaks(k)),consensus(peaks(k)),sprintf('  T%d=%.3f s',k,1/freq(peaks(k))));end
-xlim([period(1) period(end)]);set(gca,'XScale','log','XDir','normal');grid on;xlabel('Period (s)');ylabel('Consensus peak score');title('Modal-period candidates');set(f,'PaperPositionMode','auto');
+xlim([period(1) period(end)]);set(gca,'XScale','log','XDir','normal');grid on;xlabel('Period (s)');ylabel('Consensus peak score');title('(b)');set(f,'PaperPositionMode','auto');
 print(f,fullfile(outDir,'modal_period_transfer_analysis.pdf'),'-dpdf','-painters','-bestfit');print(f,fullfile(outDir,'modal_period_transfer_analysis.png'),'-dpng','-r220');close(f);
 end
 function write_latex(modal,nRecords,counts,path)

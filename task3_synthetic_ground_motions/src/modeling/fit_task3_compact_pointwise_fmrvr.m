@@ -1,5 +1,5 @@
 function model=fit_task3_compact_pointwise_fmrvr(X,Y,options)
-%FIT_TASK3_COMPACT_POINTWISE_FMRVR Robust, ridge-free point-wise FMRVR.
+%FIT_TASK3_COMPACT_POINTWISE_FMRVR Robust point-wise FMRVR.
 % The compact basis avoids record-specific RBF centers when ground motions
 % differ between training and testing records.
 if nargin<3,options=struct;end

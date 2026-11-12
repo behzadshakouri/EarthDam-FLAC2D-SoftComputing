@@ -20,7 +20,7 @@ for j=1:6
 end
 xlabel(ax,'Time (s)'); ylabel(ax,'Representative record');
 yticks(ax,offsets); yticklabels(ax,compose('R%d (%.2fg)',chosen,pga(chosen)));
-ylim(ax,[0.45 6.55]); title(ax,'Six representative motions (individually normalized)');
+ylim(ax,[0.45 6.55]); panel_label(ax,'(a)');
 grid(ax,'on'); ax.YGrid='off';
 ax=nexttile(t); hold(ax,'on');
 scatter(ax,duration,pga,30,X(:,names=="Arias_m_s"),'filled', ...
@@ -30,8 +30,7 @@ logFit=polyfit(log(duration),log(pga),1);
 trendY=exp(polyval(logFit,log(trendX)));
 plot(ax,trendX,trendY,'k--','LineWidth',1.8,'DisplayName','Log--log least-squares trend');
 grid(ax,'on'); cb=colorbar(ax); cb.Label.String='Arias intensity (m/s)';
-xlabel(ax,'Record duration (s)');ylabel(ax,'PGA (g)');title(ax,'Duration--intensity coverage');
-legend(ax,'Location','northeast','FontSize',8,'Box','off');
+xlabel(ax,'Record duration (s)');ylabel(ax,'PGA (g)');panel_label(ax,'(b)');
 periods=.10:.01:3.00;spectra=zeros(cfg.num_realizations,numel(periods));
 for i=1:cfg.num_realizations
     gm=raw.Task3.Inputs.InputsMatrix(i);
@@ -42,12 +41,16 @@ ax=nexttile(t);hold(ax,'on');for i=1:size(X,1),plot(ax,periods,spectra(i,:),'-',
 plot(ax,periods,median(spectra,1),'-','Color',[.05 .30 .62],'LineWidth',2.3, ...
     'DisplayName','Ensemble median');
 set(ax,'XScale','log');grid(ax,'on');xlabel(ax,'Oscillator period (s)');ylabel(ax,'S_a (g)');
-title(ax,'5%-damped spectra (0.01-s period spacing)');
-legend(ax,'Location','northeast','FontSize',8,'Box','off');
-ax=nexttile(t);histogram(ax,duration,12,'FaceColor',[.85 .33 .10]);grid(ax,'on');xlabel(ax,'Record duration (s)');ylabel(ax,'Count');title(ax,'Unequal native durations');
+panel_label(ax,'(c)');
+ax=nexttile(t);histogram(ax,duration,12,'FaceColor',[.85 .33 .10]);grid(ax,'on');xlabel(ax,'Record duration (s)');ylabel(ax,'Count');panel_label(ax,'(d)');
 set(findall(f,'Type','axes'),'FontName','Arial','FontSize',10,'TickDir','out','Box','on');
 path=fullfile(outputDir,'task3_ground_motion_characterization.png');exportgraphics(f,path,'Resolution',300);
 exportgraphics(f,fullfile(outputDir,'task3_ground_motion_characterization.pdf'),'ContentType','vector');close(f);
+end
+
+function panel_label(ax,label)
+text(ax,.025,.95,label,'Units','normalized','FontWeight','bold', ...
+    'FontSize',11,'VerticalAlignment','top','BackgroundColor','w','Margin',1);
 end
 
 function sa=spectral_acceleration(time,accelG,period,g)
