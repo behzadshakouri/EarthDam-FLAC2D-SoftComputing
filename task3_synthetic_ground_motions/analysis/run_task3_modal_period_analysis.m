@@ -122,7 +122,10 @@ xlim([period(1) period(end)]);set(gca,'XScale','log','XDir','normal');grid on;xl
 subplot(2,1,2);plot(period,consensus(order),'k','LineWidth',1.8);hold on;scatter(peakPeriods,peakScores,65,'filled');
 for k=1:numel(peaks),text(1/freq(peaks(k)),consensus(peaks(k)),sprintf('  T%d=%.3f s',k,1/freq(peaks(k))));end
 xlim([period(1) period(end)]);set(gca,'XScale','log','XDir','normal');grid on;xlabel('Period (s)');ylabel('Consensus peak score');title('(b)');set(f,'PaperPositionMode','auto');
-print(f,fullfile(outDir,'modal_period_transfer_analysis.pdf'),'-dpdf','-painters','-bestfit');print(f,fullfile(outDir,'modal_period_transfer_analysis.png'),'-dpng','-r220');close(f);
+print(f,fullfile(outDir,'modal_period_transfer_analysis.pdf'),'-dpdf','-painters','-bestfit');
+exportgraphics(f,fullfile(outDir,'modal_period_transfer_analysis_tight.pdf'),'ContentType','vector');
+exportgraphics(f,fullfile(outDir,'modal_period_transfer_analysis.png'),'Resolution',220);
+close(f);
 end
 function write_latex(modal,nRecords,counts,path)
 fid=fopen(path,'w');assert(fid>0);cleanup=onCleanup(@()fclose(fid));fprintf(fid,'\\begin{table}[htbp]\n\\centering\n\\caption{Development-only transfer-function modal-period candidates.}\n\\label{tab:modal_periods}\n\\begin{tabular}{rrrrr}\n\\hline\nMode no. & Frequency (Hz) & Period (s) & Family range (s) & Consensus score \\\\\n\\hline\n');
