@@ -63,12 +63,12 @@ tiledlayout(1,2,'TileSpacing','compact','Padding','compact');
 nexttile; bar(byPoint.point,byPoint.mean_R2,'FaceColor',blue); hold on;
 errorbar(byPoint.point,byPoint.mean_R2,pointStd,'k.','LineWidth',1.0,'CapSize',5);
 yline(.8,':'); grid on;
-ylim([.74 1]); xlabel('Response-extraction point'); ylabel('Mean held-out R^2'); title('Performance by response-extraction point');
+ylim([.74 1]); xlabel('Response-extraction point'); ylabel('Mean held-out R^2'); title('(a)');
 nexttile; bar(byResponse.response,byResponse.mean_R2,'FaceColor',orange); hold on;
 errorbar(byResponse.response,byResponse.mean_R2,responseStd,'k.','LineWidth',1.0,'CapSize',5);
 yline(.8,':'); grid on;
 ylim([.78 1]); set(gca,'XTick',1:7,'XTickLabel',symbols,'TickLabelInterpreter','tex');
-ylabel('Mean held-out R^2'); title('Performance by response family');
+ylabel('Mean held-out R^2'); title('(b)');
 export_pair(f,outputDir,'task4_point_response_performance'); close(f);
 
 map = nan(7,10);
@@ -84,7 +84,7 @@ h = imagesc(map); set(h,'AlphaData',~isnan(map)); set(gca,'Color',[.88 .88 .88])
 finiteMap = map(isfinite(map));
 caxis([floor(20*min(finiteMap))/20 ceil(20*max(finiteMap))/20]); colorbar;
 set(gca,'XTick',1:10,'YTick',1:7,'YTickLabel',symbols,'TickLabelInterpreter','tex');
-xlabel('Response-extraction point'); ylabel('Response'); title('Mean held-out R^2 over ten scale-stratified splits');
+xlabel('Response-extraction point'); ylabel('Response');
 for r=1:7
     for p=1:10
         if isfinite(map(r,p))
@@ -106,11 +106,11 @@ b(1).FaceColor=blue;b(2).FaceColor=green;grid on;ylim([.40 .90]);
 ylabel('Performance');xlabel('Geometric scale factor, \lambda');
 legend('Median R^2','Fraction R^2 \geq 0.8','Location','southoutside', ...
     'Orientation','horizontal','Box','off');
-title('Accuracy by modeled scale');
+title('(a)');
 nexttile;
 bar(labels,byScale.mean_nRMSE,.62,'FaceColor',orange);grid on;ylim([0 .24]);
 ylabel('Mean nRMSE');xlabel('Geometric scale factor, \lambda');
-title('Normalized error by modeled scale');
+title('(b)');
 set(findall(f,'Type','axes'),'FontName','Arial','FontSize',10.5,'TickDir','out', ...
     'LineWidth',.8,'GridAlpha',.16,'MinorGridAlpha',.10);
 export_pair(f,outputDir,'task4_scale_performance'); close(f);
